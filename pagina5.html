@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="New-Piskel.ico" type="image/x-icon">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/pagina5.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <title>Descubra_me</title>
+
+<body>
+    <div id="divPergunta">
+        <div id="dica">
+            <div id="fundo">
+                <div id="contas">
+                    <div id="blur">Click in start <br> to view</div>
+                    <div>
+                        <p id="i1"></p>
+                        <input type="number" id="input1"
+                            oninput="javascript: 
+                            if (this.value.length > this.maxLength) this.value = this.  value.slice(0, this.maxLength);" type="number" maxlength="2"
+                            class="input">
+                    </div>
+                    <div>
+                        <p id="i2"></p>
+                        <input type="number" id="input2"
+                            oninput="javascript: 
+                            if (this.value.length > this.maxLength) this.value = this.  value.slice(0, this.maxLength);" type="number" maxlength="2"
+                            class="input">
+                    </div>
+                    <div>
+                        <p id="i3"></p>
+                        <input type="number" id="input3"
+                            oninput="javascript: 
+                            if (this.value.length > this.maxLength) this.value = this.  value.slice(0, this.maxLength);" type="number" maxlength="2"
+                            class="input">
+                    </div>
+                    <div>
+                        <p id="i4"></p>
+                        <input type="number" id="input4"
+                            oninput="javascript: 
+                            if (this.value.length > this.maxLength) this.value = this.  value.slice(0, this.maxLength);" type="number" maxlength="2"
+                            class="input">
+                    </div>
+                    <div>
+                        <p id="i5"></p>
+                        <input type="number" id="input5"
+                            oninput="javascript: 
+                            if (this.value.length > this.maxLength) this.value = this.  value.slice(0, this.maxLength);" type="number" maxlength="2"
+                            class="input">
+                    </div>
+                    <div>
+                        <p id="i6"></p>
+                        <input type="number" id="input6"
+                            oninput="javascript: 
+                            if (this.value.length > this.maxLength) this.value = this.  value.slice(0, this.maxLength);" type="number" maxlength="2"
+                            class="input">
+                    </div>
+                    </ul>
+                    <button id="submit" onclick="submit()">submit
+                    </button>
+                    <span id="atalhoBotao">Enter</span>
+
+
+                </div>
+                <div id="cronometro">
+
+
+                    <div id="contador">
+                        <p id="cron">40:00</p>
+                    </div>
+
+                    <div id="botoes">
+                        <button id="botaoStart" onclick="start()">start</button>
+                        <button id="botaoReset" onclick="reset()">reset</button>
+                    </div>
+                </div>
+                <div id="confirmacao">
+                    <div id="preenchimento"></div>
+
+                    <div>
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                        </svg>
+                    </div>
+
+
+                    <div class="slide-right">
+                        <p>SUCCESS</p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <footer>5</footer>
+
+</body>
+
+</html>
+<script>
+    var certo = 0
+    var errado = 0
+    var respostas = []
+    var resultados = []
+    for (var num = 1; num <= 6; num++) {
+        var input = document.getElementById(`input${num}`).value
+
+        respostas.push(input)
+        var randomN1 = Math.floor((Math.random() * 9) + 1)
+        var randomN2 = Math.floor((Math.random() * 9) + 1)
+        resultados.push(randomN1 * randomN2)
+        var li = document.getElementById(`i${num}`)
+        var conta = `${randomN1} x ${randomN2} =`
+
+        li.innerText = conta
+    }
+
+    function certOuNao() {
+        for (var num = 0; num <= 5; num++) {
+
+            if (respostas[num] == resultados[num]) {
+                certo++
+            } else {
+                errado++
+            }
+            debugger
+            if (certo == 6) {
+                var confirm = document.getElementById('confirmacao');
+
+                confirm.style.display = "block"
+                confirm.style.display = "flex"
+                confirm.style.alignItems = "center"
+                setTimeout(function () {
+                    enviarResposta()
+                }, 3000)
+            }
+        }
+    }
+
+    function limpaInput() {
+        for (var num = 1; num <= 6; num++) {
+            var input = document.getElementById(`input${num}`).value = ""
+        }
+    }
+
+    function submit() {
+
+        respostas.splice(0, 6)
+        for (var num = 1; num <= 6; num++) {
+            var input = document.getElementById(`input${num}`).value
+            respostas.push(input)
+        }
+        var clicadoOuNao = false
+
+        if (!clicadoOuNao) {
+            certOuNao()
+            clicadoOuNao = true
+        }
+
+        if (errado >= 2 && errado <= 5) {
+            Swal.fire({
+                allowEnterKey: false,
+                toast: true,
+                icon: 'warning',
+                title: `<h4>Você errou ${errado} contas</h4>`,
+                timer: 2000,
+                timerProgressBar: true,
+                color: '#ffc282',
+                position: 'top-end',
+                showConfirmButton: false,
+                background: '#383838',
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            errado = 0
+        } else {
+
+        }
+
+        if (errado == 1) {
+            Swal.fire({
+                allowEnterKey: false,
+                toast: true,
+                icon: 'warning',
+                title: `<h4>Você errou ${errado} conta</h4>`,
+                timer: 2000,
+                timerProgressBar: true,
+                color: '#ffc282',
+                position: 'top-end',
+                showConfirmButton: false,
+                background: '#383838',
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            errado = 0;
+        }
+
+        if (errado == 6) {
+            Swal.fire({
+                allowEnterKey: false,
+                toast: true,
+                icon: 'warning',
+                title: `<h4>Você errou todas as contas</h4>`,
+                timer: 2000,
+                timerProgressBar: true,
+                color: '#ffc282',
+                position: 'top-end',
+                showConfirmButton: false,
+                background: '#383838',
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        }
+
+        for (var num = 1; num <= 6; num++) {
+
+            randomN1 = Math.floor((Math.random() * 9) + 1)
+            randomN2 = Math.floor((Math.random() * 9) + 1)
+            li = document.getElementById(`i${num}`)
+            conta = `${randomN1} x ${randomN2} =`
+
+            li.innerText = conta
+        }
+
+        blur.style.animation = ""
+        blur.innerHTML = "Click in start <br> to view"
+
+        btnStart.style.display = 'block'
+        btnReset.style.display = 'none'
+
+        clearInterval(interval)
+        limpaInput()
+
+
+    }
+
+    var seconds = 40;
+    var seconds2 = seconds
+    var milliseconds = 0;
+
+    var interval
+
+    function extraZero(num) {
+        return num < 10 ? `0${num}` : num
+    }
+
+    var btnStart = document.getElementById('botaoStart');
+    var btnReset = document.getElementById('botaoReset');
+
+    // var troca = true;
+
+    var blur = document.getElementById("blur");
+
+    function start() {
+        blur.style.animation = "blurClose .3s linear"
+        blur.style.animationFillMode = "forwards"
+        blur.innerText = ""
+
+        clearInterval(interval)
+        interval = setInterval(timer, 10)
+
+        btnStart.style.display = 'none'
+        btnReset.style.display = 'block'
+    }
+
+    // if (troca === true) {
+    //     document.addEventListener('keypress', function (evento) {
+
+    //         if (evento.keyCode === 32) {
+
+    //             const botaoSpace = document.querySelector('#botaoStart');
+
+    //             botaoSpace.click();
+
+    //             function start() { }
+
+    //             troca = false;
+    //         }
+    //     })
+    // }
+
+    function reset() {
+
+        for (var num = 1; num <= 6; num++) {
+
+            randomN1 = Math.floor((Math.random() * 9) + 1)
+            randomN2 = Math.floor((Math.random() * 9) + 1)
+            li = document.getElementById(`i${num}`)
+            conta = `${randomN1} x ${randomN2} =`
+
+            li.innerText = conta
+        }
+
+        limpaInput()
+
+        blur.style.animation = ""
+        blur.innerHTML = "Click in start <br> to view"
+
+        btnStart.style.display = 'block'
+        btnReset.style.display = 'none'
+
+        clearInterval(interval)
+
+        seconds = seconds2
+        milliseconds = 00
+
+        document.getElementById('cron').innerText = `40:00`
+    }
+
+    // document.addEventListener('keypress', function (evento) {
+
+    //     if (evento.keyCode === 27) {
+
+    //         const botaoEsc = document.querySelector('#botaoReset');
+
+    //         botaoEsc.click();
+
+    //         function reset() { }
+
+    //     }
+    // })
+
+    function timer() {
+        //Caso queira mudar os segundos maximos para o timer basta mudar o "seconds2"
+
+        if (seconds == seconds2) {
+            seconds--
+            milliseconds = 100
+        }
+
+        if (milliseconds > -1) {
+            milliseconds -= 1
+        }
+
+        if (milliseconds == -1) {
+            seconds--;
+            milliseconds = 100
+        }
+
+        if (seconds == 0 && milliseconds == 0) {
+            seconds = 00
+            milliseconds = 00
+            clearInterval(interval)
+
+
+            Swal.fire({
+                allowEnterKey: false,
+                toast: true,
+                icon: 'warning',
+                title: '<h4>O tempo acabou!</h4>',
+                timer: 2000,
+                timerProgressBar: true,
+                color: '#ffc282',
+                position: 'top-end',
+                showConfirmButton: false,
+                background: '#383838',
+                confirmButtonColor: '#313131',
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+        }
+
+        document.getElementById('cron').innerText = `${extraZero(seconds)}:${extraZero(milliseconds)}`
+    }
+
+
+
+    function enviarResposta() {
+
+        function Fail() {
+            Swal.fire({
+                allowEnterKey: false,
+                toast: true,
+                icon: 'error',
+                title: "<h6>Alguma resposta está errada!</h6>",
+                timer: 2000,
+                timerProgressBar: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                background: '#383838',
+                color: '#E2E2E2',
+                confirmButtonColor: '#313131',
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        }
+
+        if (certo == 6) {
+
+            var url = window.location.href;
+
+            var proximaUrl = url.split('/');
+
+            proximaUrl.pop();
+
+            proximaUrl = proximaUrl.join('/');
+
+            window.location.href = proximaUrl + '/pagina6.html';
+
+            certo = 0
+        } else {
+            Fail()
+        }
+    }
+
+    document.addEventListener('keypress', function (evento) {
+
+        if (evento.key === "Enter") {
+
+            const botaoEnter = document.querySelector('#submit');
+
+            botaoEnter.click();
+
+            submit()
+
+        }
+    })
+
+</script>

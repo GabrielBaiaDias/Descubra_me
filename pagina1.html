@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="New-Piskel.ico" type="image/x-icon">
+    <style>
+        #pergunta {
+            text-align: center;
+            color: white;
+        }
+
+        #dica {
+            position: absolute;
+            bottom: 40%;
+            left: -10%;
+            color: rgb(100, 100, 100);
+            text-align: center;
+        }
+
+        #fotoDica {
+            height: 257px;
+            width: 270px;
+        }
+
+        footer{
+            color: rgb(45, 45, 45);
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+    </style>
+    <title>Descubra-me</title>
+</head>
+
+<body>
+    <div id="pergunta" class="col-8 lg-offset-4 offset-2 text-center mt-5">
+        <h2>Quantos "degraus" existem?</h2>
+    </div>
+
+    <div id="dica" class="col-12 offset-sm-1 offset-md-1">
+        <img id="fotoDica" src="image-escada_P1.png" alt="">
+
+    </div>
+    <div id="divResposta">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <input type="text" name="resposta" id="resposta" maxlength="100"
+                    placeholder="Escreva sua resposta aqui">
+            </div>
+            <div class="col-1" style="padding-left: 0;">
+                <button id="botaoResposta" onclick="enviarResposta()"><span style="width: 100%;">></span></button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <footer>
+        1
+    </footer>
+</body>
+
+</html>
+
+<script>
+    document.getElementById('resposta').focus();
+
+    function enviarResposta() {
+
+        var resposta = document.getElementById('resposta').value
+
+        if (resposta == '1') {
+
+            var url = window.location.href;
+
+            var proximaUrl = url.split('/');
+
+            proximaUrl.pop();
+
+            proximaUrl = proximaUrl.join('/');
+
+            window.location.href = proximaUrl + '/pagina2.html';
+
+        } else {
+            if (resposta.length == 0) {
+                alert('[ERROR] Preencha o espaço!')
+            } else {
+                alert("A resposta " + resposta + " está errada!");
+            }
+        }
+    }
+
+    document.addEventListener('keypress', function (evento) {
+
+        if (evento.key === "Enter") {
+
+            const botaoEnter = document.querySelector('#botaoResposta');
+
+            botaoEnter.click();
+
+            function enviarResposta() { }
+
+        }
+    })
+</script>

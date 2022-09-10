@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="New-Piskel.ico" type="image/x-icon">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Descubra_me</title>
+    <style>
+        #dica {
+            margin: auto;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        footer {
+            color: rgb(45, 45, 45);
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        #clickViewDiv {
+            margin-top: 50px;
+        }
+
+        .cores {
+            width: 118px;
+            height: 119px;
+            margin: 10px;
+            transition-duration: .2s;
+        }
+
+        #azul {
+            background-color: rgb(57, 57, 255);
+            border: 3px solid rgb(0, 0, 216);
+            outline: none;
+
+        }
+
+        #amarelo {
+            background-color: rgb(255, 255, 86);
+            border: 3px solid rgb(208, 208, 0);
+            outline: none;
+
+        }
+
+        #vermelho {
+            background-color: rgb(255, 88, 88);
+            border: 3px solid rgb(219, 0, 0);
+            outline: none;
+
+        }
+
+        #verde {
+            background-color: rgb(73, 255, 73);
+            border: 3px solid rgb(0, 160, 0);
+            outline: none;
+
+        }
+
+        #azul:hover {
+            background-color: rgb(0, 0, 216);
+            border: 3px solid rgb(57, 57, 255);
+            outline: none;
+            width: 120px;
+            height: 120px;
+            margin: 9px;
+        }
+
+        #amarelo:hover {
+            background-color: rgb(208, 208, 0);
+            border: 3px solid rgb(255, 255, 86);
+            outline: none;
+            width: 120px;
+            height: 120px;
+            margin: 9px;
+        }
+
+        #vermelho:hover {
+            background-color: rgb(219, 0, 0);
+            border: 3px solid rgb(255, 88, 88);
+            outline: none;
+            width: 120px;
+            height: 120px;
+            margin: 9px;
+        }
+
+        #verde:hover {
+            background-color: rgb(0, 160, 0);
+            border: 3px solid rgb(46, 210, 46);
+            outline: none;
+            width: 120px;
+            height: 120px;
+            margin: 9px;
+        }
+
+        .clickView {
+            width: 50px;
+            height: 50px;
+            border: 1px solid white;
+            display: inline-flex;
+            border-collapse: collapse;
+        }
+
+        #niveis {
+            position: absolute;
+            left: 50%;
+            bottom: 15%;
+            width: 170px;
+            height: 95px;
+            background-color: gray;
+            transform: translate(-50%);
+            border: 8px double rgb(200, 200, 200);
+            box-sizing: content-box;
+            color: rgb(255, 255, 255);
+            border-top-color:rgb(57, 57, 255);
+            border-right-color: rgb(255, 255, 86);
+            border-bottom-color: rgb(255, 88, 88);
+            border-left-color:  rgb(73, 255, 73);
+        }
+
+        #niveis>h2 {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 2.2em;
+            margin: 0;
+            color: rgb(201, 201, 201);
+        }
+    </style>
+
+<body>
+    <div id="divPergunta">
+        <div id="pergunta" class="col-8 offset-2 text-center mt-5">
+            <h2 style="color: white;">
+                Siga a sequencia:
+                <span id="verdeS">verde</span>,
+                <span id="azulS">azul</span>,
+                <span id="vermelhoS">vermelho</span>,
+                <span id="amareloS">amarelo</span>
+            </h2>
+        </div>
+        <div id="dica">
+            <div id="botoesId">
+                <button onclick="retornaCor(1)" class="cores" id="azul"></button>
+                <button onclick="retornaCor(2)" class="cores" id="amarelo"></button>
+                <button onclick="retornaCor(3)" class="cores" id="vermelho"></button>
+                <button onclick="retornaCor(4)" class="cores" id="verde"></button>
+            </div>
+            <div id="clickViewDiv" class="col-6 offset-3 row-1">
+                <div class="clickView" id="view1" onclick="removeColor(0)"></div>
+                <div class="clickView" id="view2" onclick="removeColor(1)"></div>
+                <div class="clickView" id="view3" onclick="removeColor(2)"></div>
+                <div class="clickView" id="view4" onclick="removeColor(3)"></div>
+            </div>
+            <div id="niveis">
+                <h2>Nível</h2>
+                <div id="numNivel"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer>
+        3
+    </footer>
+
+</body>
+
+</html>
+
+<script>
+    var guiaCores = document.getElementById("pergunta");
+
+    function timerGuia(time) {
+        guiaCores.style.visibility = "visible"
+        setTimeout(function () {
+
+            guiaCores.style.visibility = "hidden"
+
+        }, time);
+    }
+    timerGuia(3000)
+
+    var view1 = document.getElementById("view1");
+    var view2 = document.getElementById("view2");
+    var view3 = document.getElementById("view3");
+    var view4 = document.getElementById("view4");
+
+    var respostaCores = []
+
+    function removeColor(index) {
+        respostaCores.splice(index, 1);
+        atualizaViews();
+    };
+
+    function limpaRespostaCores() {
+        respostaCores = [];
+        view1.style.backgroundColor = "transparent";
+        view2.style.backgroundColor = "transparent";
+        view3.style.backgroundColor = "transparent";
+        view4.style.backgroundColor = "transparent";
+    }
+
+    function atualizaViews() {
+        if (respostaCores[0]) {
+            view1.style.backgroundColor = respostaCores[0];
+        } else {
+            view1.style.backgroundColor = "transparent"
+        }
+
+        if (respostaCores[1]) {
+            view2.style.backgroundColor = respostaCores[1];
+        } else {
+            view2.style.backgroundColor = "transparent"
+        }
+
+        if (respostaCores[2]) {
+            view3.style.backgroundColor = respostaCores[2];
+        } else {
+            view3.style.backgroundColor = "transparent"
+        }
+
+        if (respostaCores[3]) {
+            view4.style.backgroundColor = respostaCores[3];
+        } else {
+            view4.style.backgroundColor = "transparent"
+        }
+    }
+
+    function atualizaCorGuia() {
+        if (resposta[0]) {
+            var verde = document.getElementById('verdeS').style.color = resposta[0];
+        }
+
+        if (resposta[1]) {
+            var azul = document.getElementById('azulS').style.color = resposta[1];
+        }
+
+        if (resposta[2]) {
+            var vermelho = document.getElementById('vermelhoS').style.color = resposta[2];
+        }
+
+        if (resposta[3]) {
+            var amarelo = document.getElementById('amareloS').style.color = resposta[3];
+        }
+    }
+
+    function shuffleArray(array) {
+        for (let a = array.length - 1; a > 0; a--) {
+            const b = Math.floor(Math.random() * (a + 1));
+            [array[a], array[b]] = [array[b], array[a]];
+        }
+        return array;
+    }
+
+    var contCorreto = 0
+    var contErrado = 0
+    var numNivel = 1
+    var positionColors = ["#ff0000", "#00ff00", "#ffff00", "#0000ff"];
+
+    var resposta = []
+    resposta = shuffleArray(positionColors)
+    atualizaCorGuia()
+
+    var nivel = document.getElementById('numNivel');
+
+    function adicionaResposta(cor) {
+        if (respostaCores.length <= 3) {
+            respostaCores.push(cor);
+            atualizaViews();
+        }
+
+        if (respostaCores.length == 4) {
+            if (JSON.stringify(respostaCores) == JSON.stringify(resposta)) {
+                numNivel++
+                if (numNivel == 4) {
+                    numNivel--
+                }
+                contCorreto++
+                resposta = shuffleArray(positionColors)
+                timerGuia(3000)
+                atualizaCorGuia()
+            } else {
+                contErrado++
+                if (contErrado == 3) {
+                    contErrado = 0
+                    contCorreto = 0
+                    resposta = shuffleArray(resposta)
+                    numNivel = 1
+                }
+                Swal.fire({
+                    icon: 'error',
+                    title: '[ERROR]',
+                    text: `A resposta está errada!`,
+                    background: '#383838',
+                    color: '#E2E2E2',
+                    confirmButtonColor: '#313131',
+                })
+
+                var interval = setInterval(function () {
+                    timerGuia(1000)
+                    clearInterval(interval)
+                }, 1000)
+
+            }
+            enviarResposta()
+            limpaRespostaCores()
+        }
+        // Precisa dos dois "nivel.innerHTML" porque nao funciona so com um.. nao sei o porque ;-;
+        nivel.innerHTML = `<h1>${numNivel}</h1>`
+    }
+    nivel.innerHTML = `<h1>${numNivel}</h1>`
+
+    function retornaCor(idCor) {
+        switch (idCor) {
+            case 1:
+                return adicionaResposta("#0000ff");
+            case 2:
+                return adicionaResposta("#ffff00");
+            case 3:
+                return adicionaResposta("#ff0000");
+            case 4:
+                return adicionaResposta("#00ff00");
+            default:
+                return adicionaResposta("#000000");
+        }
+    }
+
+    var positionColors = shuffleArray(["#ff0000", "#00ff00", "#0000ff", "#ffff00"]);
+
+    function enviarResposta() {
+
+        if (contCorreto == 3) {
+
+            var url = window.location.href;
+
+            var proximaUrl = url.split('/');
+
+            proximaUrl.pop();
+
+            proximaUrl = proximaUrl.join('/');
+
+            window.location.href = proximaUrl + '/pagina4.html';
+
+            limpaRespostaCores();
+        }
+    }
+
+    document.addEventListener('keypress', function (evento) {
+
+        if (evento.key === "Enter") {
+
+            const botaoEnter = document.querySelector('#botaoResposta');
+
+            botaoEnter.click();
+
+            function enviarResposta() { }
+
+        }
+    })
+</script>

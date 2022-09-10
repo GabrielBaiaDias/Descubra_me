@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="shortcut icon" href="New-Piskel.ico" type="image/x-icon">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Descubra_me</title>
+    <style>
+        #dica {
+            color: gray;
+            position: absolute;
+            bottom: 50%;
+            left: 12%;
+            text-align: center;
+        }
+
+        footer {
+            color: rgb(45, 45, 45);
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+    </style>
+
+<body>
+    <div id="divPergunta">
+        <div id="pergunta" class="col-8 offset-2 text-center mt-5">
+            <h2 style="color: white;">
+                Pergunta Aleatoria
+            </h2>
+        </div>
+        <div class="container">
+            <div id="dica" class="col-7 offset-1">
+                [- Dica -]
+            </div>
+        </div>
+    </div>
+    <div id="divResposta">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <input type="text" name="resposta" id="resposta" maxlength="100"
+                    placeholder="Escreva sua resposta aqui">
+            </div>
+            <div class="col-1" style="padding-left: 0;">
+                <button id="botaoResposta" onclick="enviarResposta()"><span style="width: 100%;">></span></button>
+            </div>
+        </div>
+    </div>
+    <footer></footer>
+
+</body>
+
+</html>
+
+<script>
+    
+    document.getElementById('resposta').focus();
+
+    function enviarResposta() {
+
+        var resposta = document.getElementById("resposta").value;
+
+        const Alerts = {
+
+            Warning() {
+                Swal.fire({
+                    allowEnterKey: false,
+                    toast: true,
+                    icon: 'warning',
+                    text: 'Preencha o espaço!',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    color: '#E2E2E2',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    background: '#383838',
+                    confirmButtonColor: '#313131',
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+            },
+
+            Fail() {
+                Swal.fire({
+                    allowEnterKey: false,
+                    toast: true,
+                    icon: 'error',
+                    text: `A resposta "${resposta}" está errada!`,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    background: '#383838',
+                    color: '#E2E2E2',
+                    confirmButtonColor: '#313131',
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+            },
+        }
+
+        if (resposta == '???') {
+
+            var url = window.location.href;
+
+            var proximaUrl = url.split('/');
+
+            proximaUrl.pop();
+
+            proximaUrl = proximaUrl.join('/');
+
+            window.location.href = proximaUrl + '/pagina6.html';
+
+        } else {
+            if (resposta.length == 0) {
+                Alerts.Warning()
+            } else {
+                Alerts.Fail()
+            }
+        }
+    }
+
+    document.addEventListener('keypress', function (evento) {
+
+        if (evento.key === "Enter") {
+
+            const botaoEnter = document.querySelector('#botaoResposta');
+
+            botaoEnter.click();
+
+            function enviarResposta() { }
+
+        }
+    })
+
+</script>

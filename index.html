@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        #dica {
+            position: absolute;
+            bottom: 40%;
+        }
+
+        footer{
+            color: rgb(45, 45, 45);
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+    </style>
+    <title>Descubra-me</title>
+</head>
+
+<body>
+    <div id="divPergunta">
+        <div id="pergunta" class="col-8 offset-2 text-center mt-5">
+            <h1 style="color: white;">Que animal é esse?</h1>
+        </div>
+        <div id="dica" class="col-2 offset-4 offset-md-4 offset-xl-5">
+            <img src="data:image/jpeg;base64,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"
+                alt="">
+        </div>
+    </div>
+    <div id="divResposta">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <input type="text" name="resposta" id="resposta" maxlength="100"
+                    placeholder="Escreva sua resposta aqui">
+            </div>
+            <div class="col-1" style="padding-left: 0;">
+                <button id="botaoResposta" onclick="enviarResposta()"><span style="width: 100%;">></span></button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        0
+    </footer>
+</body>
+
+</html>
+
+<script>
+    document.getElementById('resposta').focus();
+   
+    function enviarResposta() {
+
+        var resposta = document.getElementById("resposta").value;
+
+        if (resposta == 'pato' || resposta == 'Pato') {
+
+            var url = window.location.href;
+
+            var proximaUrl = url.split('/');
+
+            proximaUrl.pop();
+
+            proximaUrl = proximaUrl.join('/');
+
+            console.log("proximaUrl", proximaUrl)
+
+            window.location.href = proximaUrl + '/pagina1.html';
+        } else {
+            if (resposta.length == 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title:'[ERROR]',
+                    text:'Preencha o espaço!',
+                    background: '#383838',
+                    color: '#E2E2E2',
+                    confirmButtonColor: '#313131',
+                })
+            } else {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: '[ERROR]',
+                    text: `A resposta "${resposta}" está errada!`,
+                    background: '#383838',
+                    color: '#E2E2E2',
+                    confirmButtonColor: '#313131',
+                })
+            }
+        }
+    }
+
+    document.addEventListener('keypress', function (evento) {
+
+        if (evento.key === "Enter") {
+
+            const botaoEnter = document.querySelector('#botaoResposta');
+
+            botaoEnter.click();
+
+            function enviarResposta() { }
+
+        }
+    })
+</script>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="New-Piskel.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="JavaScript/pagina4.js"></script> -->
+    <style>
+        body {
+            background-color: rgba(94, 94, 94, 0.603) !important;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #inicio {
+            background-color: rgba(211, 211, 211, 0.507);
+            width: 80vmin;
+            height: 80vmin;
+            border: 20px solid hsla(0, 0%, 31%, 0.649);
+            box-sizing: content-box;
+            display: grid;
+            grid-template-rows: repeat(15, auto);
+            grid-template-columns: repeat(15, auto);
+        }
+
+        #jogo {
+            width: 80vmin;
+            height: 80vmin;
+
+            background-color: hsl(0, 0%, 14%);
+
+            display: none;
+            border: 20px solid hsla(0, 0%, 31%, 0.649);
+            box-sizing: content-box;
+
+            grid-template-rows: repeat(15, auto);
+            grid-template-columns: repeat(15, auto);
+        }
+
+        #dicaGuia {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+
+            width: 150px;
+            height: 65px;
+            padding: 5px;
+            padding-top: 0;
+            font-size: 13px;
+            border: 3px solid rgba(255, 255, 255, 0.501);
+            border-bottom: none;
+            color: white;
+            background-color: rgba(9, 107, 255, 0.501);
+
+        }
+
+        footer {
+            color: rgb(45, 45, 45);
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .move-direita {
+            transition: 1s;
+            grid-column-start: 1;
+        }
+
+        .show {
+            transition: 1s;
+            opacity: 1;
+        }
+
+        .hide {
+            transition: 1s;
+            opacity: 0;
+        }
+    </style>
+    <title>Descubra-me</title>
+</head>
+
+<body id="body">
+
+    <div id="inicio"></div>
+
+    <div id="jogo">
+
+    </div>
+    <div id="dicaGuia">
+        Para o jogo aparecer, basta passar o mouse no quadrado cinza. =D
+    </div>
+    <footer>
+        4
+    </footer>
+
+</body>
+
+</html>
+<script>
+
+    var fase = 1
+
+
+    var inicio = document.getElementById('inicio');
+    var jogo = document.getElementById("jogo");
+
+    function limpaGrid(idElemento) {
+        const grid = document.getElementById(idElemento);
+
+        while (grid.firstChild) {
+            grid.removeChild(grid.lastChild);
+        }
+    }
+
+
+    function adicionaPixelInicio(x, y) {
+        var pixel1 = document.createElement("div");
+        pixel1.style.gridColumnStart = x;
+        pixel1.style.gridRowStart = y;
+        pixel1.style.backgroundColor = "lightgray";
+        inicio.appendChild(pixel1);
+        pixel1.addEventListener("mouseover", function (e) {
+            debugger
+
+            if (fase == 1) {
+                carregaJogo()
+                fase++
+            } else if (fase == 2) {
+                carregaJogo2()
+                fase++
+            } else if (fase == 3) {
+                carregaJogo3()
+                fase++
+            } else if (fase == 4) {
+                carregaJogo4()
+                fase++
+            }
+
+
+            e.stopPropagation();
+        })
+    }
+
+    function adicionaPixel(x, y, cor = "white") {
+        debugger
+        if (fase <= 2) {
+            if (x >= 14 && y >= 14) {
+                var pxFinal = document.createElement("div");
+                pxFinal.style.gridColumnStart = x;
+                pxFinal.style.gridRowStart = y;
+                pxFinal.style.backgroundColor = cor;
+                console.log("verde")
+                pxFinal.addEventListener("mouseover", function (e) {
+                    mostraInicio()
+                    e.stopPropagation();
+                })
+                jogo.appendChild(pxFinal);
+            } else {
+                var pixel1 = document.createElement("div");
+                pixel1.style.gridColumnStart = x;
+                pixel1.style.gridRowStart = y;
+                pixel1.style.backgroundColor = cor;
+                jogo.appendChild(pixel1);
+                pixel1.addEventListener("mouseover", function (e) {
+                    e.stopPropagation();
+                })
+
+            }
+        }
+
+        if (fase == 3) {
+            if (x == 20 && y == 1 ||
+                x == 20 && y == 2 ||
+                x == 19 && y == 1 ||
+                x == 19 && y == 2) {
+                var pxFinal = document.createElement("div");
+                pxFinal.style.gridColumnStart = x;
+                pxFinal.style.gridRowStart = y;
+                pxFinal.style.backgroundColor = cor;
+                console.log("verde")
+                pxFinal.addEventListener("mouseover", function (e) {
+                    mostraInicio()
+                    e.stopPropagation();
+                })
+                jogo.appendChild(pxFinal);
+            } else {
+                var pixel1 = document.createElement("div");
+                pixel1.style.gridColumnStart = x;
+                pixel1.style.gridRowStart = y;
+                pixel1.style.backgroundColor = cor;
+                jogo.appendChild(pixel1);
+                pixel1.addEventListener("mouseover", function (e) {
+                    e.stopPropagation();
+                })
+
+            }
+
+        }
+
+        if (fase == 4) {
+            if (x == 1 && y == 20 ||
+                x == 2 && y == 20 ||
+                x == 1 && y == 19 ||
+                x == 2 && y == 19) {
+                var pxFinal = document.createElement("div");
+                pxFinal.style.gridColumnStart = x;
+                pxFinal.style.gridRowStart = y;
+                pxFinal.style.backgroundColor = cor;
+                console.log("verde")
+                pxFinal.addEventListener("mouseover", function (e) {
+                    mostraInicio()
+                    e.stopPropagation();
+                })
+                jogo.appendChild(pxFinal);
+            } else {
+                var pixel1 = document.createElement("div");
+                pixel1.style.gridColumnStart = x;
+                pixel1.style.gridRowStart = y;
+                pixel1.style.backgroundColor = cor;
+                jogo.appendChild(pixel1);
+                pixel1.addEventListener("mouseover", function (e) {
+                    e.stopPropagation();
+                })
+
+            }
+        }
+    }
+
+    function adicionaPixelArmadilha(x, y, tempoPisca) {
+        debugger
+        var pixel1 = document.createElement("div");
+        pixel1.style.gridColumnStart = x;
+        pixel1.style.gridRowStart = y;
+        pixel1.style.backgroundColor = "rgb(255, 187, 0)";
+        jogo.appendChild(pixel1);
+        var interval = setInterval(function () {
+            if (pixel1.style.display == 'none') {
+                pixel1.style.display = 'block';
+            } else {
+                pixel1.style.display = 'none';
+            }
+        }, tempoPisca);
+        pixel1.addEventListener("mouseover", function (e) {
+            e.stopPropagation();
+        })
+    }
+
+    function adicionaPixelMovel(x, y, tempoMove) {
+        debugger
+        var pixel1 = document.createElement("div");
+        pixel1.style.gridColumnStart = x;
+        pixel1.style.gridRowStart = y;
+        pixel1.style.backgroundColor = "rgb(47, 127, 255)";
+        var interval = setInterval(function () {
+            debugger
+            pixel.classList.add('move-direita');
+            // if (pixel1.classList.contains("show") ) {
+            //     pixel1.classList.add("hide");
+            //     pixel1.classList.remove("show");
+            // } else {
+            //     pixel1.classList.remove("hide");
+            //     pixel1.classList.add("show");
+            // }
+
+        }, tempoMove);
+        jogo.appendChild(pixel1);
+        pixel1.addEventListener("mouseover", function (e) {
+            e.stopPropagation();
+        })
+    }
+
+    mostraInicio()
+
+    function mostraInicio() {
+        debugger
+        jogo.style.display = "none";
+        inicio.style.display = "grid";
+
+        if (fase == 1) {
+            limpaGrid("inicio");
+            adicionaPixelInicio(1, 1);
+            adicionaPixelInicio(1, 2);
+            adicionaPixelInicio(2, 2);
+            adicionaPixelInicio(2, 1);
+        }
+        if (fase == 2) {
+            limpaGrid("inicio");
+            adicionaPixelInicio(15, 1);
+            adicionaPixelInicio(15, 2);
+            adicionaPixelInicio(14, 2);
+            adicionaPixelInicio(14, 1);
+        }
+        if (fase == 3) {
+            limpaGrid("inicio");
+            inicio.style.gridTemplateRows = "repeat(20, auto)";
+            inicio.style.gridTemplateColumns = "repeat(20, auto)";
+            adicionaPixelInicio(1, 19);
+            adicionaPixelInicio(2, 20);
+            adicionaPixelInicio(1, 20);
+            adicionaPixelInicio(2, 19);
+        }
+        if (fase == 4) {
+            limpaGrid("inicio");
+            adicionaPixelInicio(1, 2);
+            adicionaPixelInicio(2, 2);
+            adicionaPixelInicio(1, 1);
+            adicionaPixelInicio(2, 1);
+        }
+    }
+
+    var jogo = document.getElementById("jogo");
+
+    jogo.addEventListener("mouseover", function () {
+        console.log("jogo")
+        //document.location.reload(); //  <<<<<<==<<==<===================
+
+    })
+
+
+    //------------------------------------------------------------//
+    //=============--- INÍCIO CARREGAJOGO NÍVEL 1 ---=============//
+
+    function carregaJogo() {
+        debugger
+        jogo.style.display = 'grid'
+        inicio.style.display = 'none'
+        jogo.classList.add("container_2")
+        adicionaPixel(1, 1, 'lightblue')
+        adicionaPixel(1, 2, 'lightblue')
+        adicionaPixel(2, 1, 'lightblue')
+        adicionaPixel(2, 2, 'lightblue')
+
+        adicionaPixel(1, 3);
+        adicionaPixel(1, 4);
+        adicionaPixelMovel(1, 5, 1000);
+        // adicionaPixel(1, 5)
+        adicionaPixel(1, 6);
+        adicionaPixel(1, 7);
+        adicionaPixel(2, 7);
+        adicionaPixel(3, 7);
+        adicionaPixel(4, 7);
+        adicionaPixel(5, 7);
+        adicionaPixel(6, 7);
+        adicionaPixel(6, 6);
+        adicionaPixel(6, 5);
+        adicionaPixel(6, 4);
+        adicionaPixel(6, 3);
+        adicionaPixel(6, 2);
+        adicionaPixel(7, 2);
+        adicionaPixel(8, 2);
+        adicionaPixel(8, 3);
+        adicionaPixel(8, 4);
+        adicionaPixel(8, 5);
+        adicionaPixel(8, 6);
+        adicionaPixel(8, 7);
+        adicionaPixel(8, 8);
+        adicionaPixel(8, 9);
+        adicionaPixel(7, 9);
+        adicionaPixel(6, 9);
+        adicionaPixel(5, 9);
+        adicionaPixel(5, 10);
+        adicionaPixel(5, 11);
+        adicionaPixel(5, 12);
+        adicionaPixel(5, 13);
+        adicionaPixel(6, 13);
+        adicionaPixel(7, 13);
+        adicionaPixel(8, 13);
+        adicionaPixel(9, 13);
+        adicionaPixel(10, 9);
+        adicionaPixel(11, 9);
+        adicionaPixel(12, 9);
+        adicionaPixel(13, 9);
+        adicionaPixel(10, 13);
+        adicionaPixel(10, 12);
+        adicionaPixel(10, 11);
+        adicionaPixel(10, 10);
+        adicionaPixel(13, 10);
+        adicionaPixel(13, 11);
+        adicionaPixel(13, 12);
+        adicionaPixel(13, 13);
+        adicionaPixel(13, 14);
+
+        adicionaPixel(14, 15, 'lightgreen');
+        adicionaPixel(14, 14, 'lightgreen');
+        adicionaPixel(15, 14, 'lightgreen');
+        adicionaPixel(15, 15, 'lightgreen');
+    }
+
+    //==============--- FINAL CARREGAJOGO NÍVEL 1 ---==============//
+    //-------------------------------------------------------------//
+
+    //------------------------------------------------------------//
+    //=============--- INÍCIO CARREGAJOGO NÍVEL 2 ---=============//
+
+    function carregaJogo2() {
+        debugger
+        limpaGrid("jogo")
+        jogo.style.display = 'grid';
+        inicio.style.display = 'none';
+        jogo.classList.add("container_2");
+
+        adicionaPixel(15, 1, "lightpink");
+        adicionaPixel(15, 2, "lightpink");
+        adicionaPixel(14, 2, "lightpink");
+        adicionaPixel(14, 1, "lightpink");
+
+        adicionaPixel(10, 14);
+        adicionaPixel(10, 13);
+        adicionaPixel(10, 12);
+        adicionaPixel(11, 12);
+        adicionaPixel(12, 12);
+        adicionaPixel(13, 12);
+        adicionaPixel(14, 12);
+        adicionaPixel(14, 13);
+        adicionaPixel(15, 3);
+        adicionaPixel(15, 4);
+        adicionaPixel(14, 4);
+        adicionaPixel(13, 4);
+        adicionaPixel(12, 4);
+        adicionaPixel(11, 4);
+        adicionaPixel(11, 5);
+        adicionaPixel(11, 6);
+        adicionaPixel(11, 7);
+        adicionaPixel(11, 8);
+        adicionaPixel(10, 8);
+        adicionaPixel(3, 10);
+        adicionaPixel(4, 10);
+        adicionaPixel(5, 10);
+        adicionaPixel(6, 10);
+        adicionaPixel(7, 10);
+        adicionaPixel(7, 11);
+        adicionaPixelArmadilha(7, 12, 600);
+        adicionaPixelArmadilha(7, 13, 600);
+        adicionaPixel(7, 14);
+        adicionaPixel(8, 14);
+        adicionaPixel(9, 14);
+        adicionaPixel(9, 7);
+        adicionaPixel(9, 8);
+        adicionaPixel(9, 6);
+        adicionaPixel(8, 6);
+        adicionaPixel(7, 6);
+        adicionaPixel(6, 6);
+        adicionaPixel(6, 5);
+        adicionaPixel(6, 4);
+        adicionaPixel(6, 3);
+        adicionaPixel(6, 2);
+        adicionaPixel(3, 2);
+        adicionaPixel(3, 3);
+        adicionaPixel(3, 4);
+        adicionaPixel(5, 2);
+        adicionaPixel(4, 2);
+        adicionaPixelArmadilha(3, 5, 600);
+        adicionaPixelArmadilha(3, 6, 600);
+        adicionaPixel(3, 7);
+        adicionaPixel(3, 8);
+        adicionaPixel(3, 9);
+
+        adicionaPixel(14, 15, "lightgreen");
+        adicionaPixel(15, 14, "lightgreen");
+        adicionaPixel(14, 14, "lightgreen");
+        adicionaPixel(15, 15, "lightgreen");
+    }
+
+    //==============--- FINAL CARREGAJOGO NÍVEL 2 ---==============//
+    //-------------------------------------------------------------//
+
+    //------------------------------------------------------------//
+    //=============--- INÍCIO CARREGAJOGO NÍVEL 3 ---=============//
+
+    function carregaJogo3() {
+        debugger
+        limpaGrid("jogo")
+        jogo.style.display = 'grid';
+        jogo.style.gridTemplateRows = "repeat(20, auto)";
+        jogo.style.gridTemplateColumns = "repeat(20, auto)";
+        inicio.style.display = 'none';
+        jogo.classList.add("container_2");
+
+        adicionaPixel(2, 19, "lightsalmon");
+        adicionaPixel(1, 19, "lightsalmon");
+        adicionaPixel(2, 20, "lightsalmon");
+        adicionaPixel(1, 20, "lightsalmon");
+
+        adicionaPixel(3, 19);
+        adicionaPixel(3, 18);
+        adicionaPixel(3, 17);
+        adicionaPixel(4, 17);
+        adicionaPixel(5, 17);
+        adicionaPixel(5, 18);
+        adicionaPixel(5, 19);
+        adicionaPixel(6, 19);
+        adicionaPixel(7, 19);
+        adicionaPixel(8, 19);
+        adicionaPixel(9, 19);
+        adicionaPixel(10, 19);
+        adicionaPixel(11, 19);
+        adicionaPixel(12, 19);
+        adicionaPixel(12, 18);
+        adicionaPixel(12, 17);
+        adicionaPixel(13, 17);
+        adicionaPixel(14, 17);
+        adicionaPixel(14, 18);
+        adicionaPixel(15, 18);
+        adicionaPixel(16, 18);
+        adicionaPixel(17, 18);
+        adicionaPixel(18, 18);
+        adicionaPixel(18, 17);
+        adicionaPixel(18, 16);
+        adicionaPixel(17, 16);
+        adicionaPixel(16, 16);
+        adicionaPixel(16, 15);
+        adicionaPixel(16, 14);
+        adicionaPixel(15, 14);
+        adicionaPixel(15, 13);
+        adicionaPixel(14, 13);
+        adicionaPixel(13, 13);
+        adicionaPixelArmadilha(12, 13, 550);
+        adicionaPixelArmadilha(11, 13, 550);
+        adicionaPixelArmadilha(11, 12, 550);
+        adicionaPixel(11, 11);
+        adicionaPixel(10, 11);
+        adicionaPixel(9, 11);
+        adicionaPixel(8, 11);
+        adicionaPixel(7, 11);
+        adicionaPixel(7, 10);
+        adicionaPixel(7, 9);
+        adicionaPixel(8, 9);
+        adicionaPixel(9, 9);
+        adicionaPixel(9, 8);
+        adicionaPixel(9, 7);
+        adicionaPixel(9, 6);
+        adicionaPixel(8, 6);
+        adicionaPixel(7, 6);
+        adicionaPixel(6, 6);
+        adicionaPixel(5, 6);
+        adicionaPixel(4, 6);
+        adicionaPixelArmadilha(4, 5, 550);
+        adicionaPixelArmadilha(4, 4, 550);
+        adicionaPixelArmadilha(4, 3, 550);
+        adicionaPixelArmadilha(5, 3, 550);
+        adicionaPixel(6, 3);
+        adicionaPixel(7, 3);
+        adicionaPixel(7, 4);
+        adicionaPixel(8, 4);
+        adicionaPixel(9, 4);
+        adicionaPixel(10, 4);
+        adicionaPixel(11, 4);
+        adicionaPixel(12, 4);
+        adicionaPixel(12, 5);
+        adicionaPixel(13, 5);
+        adicionaPixel(14, 5);
+        adicionaPixel(14, 6);
+        adicionaPixel(15, 6);
+        adicionaPixel(15, 7);
+        adicionaPixel(16, 7);
+        adicionaPixel(17, 7);
+        adicionaPixel(18, 7);
+        adicionaPixel(18, 6);
+        adicionaPixel(18, 5);
+        adicionaPixel(19, 5);
+        adicionaPixel(19, 4);
+        adicionaPixel(19, 3);
+
+
+        adicionaPixel(20, 1, "lightgreen");
+        adicionaPixel(20, 2, "lightgreen");
+        adicionaPixel(19, 1, "lightgreen");
+        adicionaPixel(19, 2, "lightgreen");
+    }
+
+    //==============--- FINAL CARREGAJOGO NÍVEL 3 ---==============//
+    //-------------------------------------------------------------//
+
+    //------------------------------------------------------------//
+    //=============--- INÍCIO CARREGAJOGO NÍVEL 3 ---=============//
+
+    function carregaJogo4() {
+        debugger
+        limpaGrid("jogo")
+        jogo.style.display = 'grid';
+        inicio.style.display = 'none';
+        jogo.classList.add("container_2");
+
+        adicionaPixel(2, 1, "lightseagreen");
+        adicionaPixel(1, 1, "lightseagreen");
+        adicionaPixel(2, 2, "lightseagreen");
+        adicionaPixel(1, 2, "lightseagreen");
+
+
+        adicionaPixel(1, 20, "lightgreen");
+        adicionaPixel(2, 20, "lightgreen");
+        adicionaPixel(1, 19, "lightgreen");
+        adicionaPixel(2, 19, "lightgreen");
+    }
+
+    //==============--- FINAL CARREGAJOGO NÍVEL 3 ---==============//
+    //-------------------------------------------------------------//
+
+
+    function enviarResposta() {
+
+        var url = window.location.href;
+
+        var proximaUrl = url.split('/');
+
+        proximaUrl.pop();
+
+        proximaUrl = proximaUrl.join('/');
+
+        console.log("proximaUrl", proximaUrl)
+
+        window.location.href = proximaUrl + '/pagina5.html';
+    }
+
+    document.addEventListener('keypress', function (evento) {
+
+        if (evento.key === "Enter") {
+
+            const botaoEnter = document.querySelector('#botaoResposta');
+
+            botaoEnter.click();
+
+            enviarResposta()
+
+        }
+    })
+
+</script>

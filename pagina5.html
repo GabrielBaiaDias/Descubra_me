@@ -156,6 +156,14 @@
     }
 
     function submit() {
+        debugger
+
+        clearInterval(interval)
+
+        seconds = seconds2
+        milliseconds = 00
+
+        document.getElementById('cron').innerText = `40:00`
 
         respostas.splice(0, 6)
         for (var num = 1; num <= 6; num++) {

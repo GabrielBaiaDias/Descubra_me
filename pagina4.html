@@ -23,21 +23,23 @@
 
         #inicio {
             background-color: rgba(211, 211, 211, 0.507);
-            width: 80vmin;
-            height: 80vmin;
+            width: 540px;
+            height: 540px;
             border: 20px solid hsla(0, 0%, 31%, 0.649);
             box-sizing: content-box;
             display: grid;
+            position: absolute;
             grid-template-rows: repeat(15, auto);
             grid-template-columns: repeat(15, auto);
         }
 
         #jogo {
-            width: 80vmin;
-            height: 80vmin;
+            width: 540px;
+            height: 540px;
 
             background-color: hsl(0, 0%, 14%);
 
+            position: absolute;
             display: none;
             border: 20px solid hsla(0, 0%, 31%, 0.649);
             box-sizing: content-box;
@@ -46,21 +48,56 @@
             grid-template-columns: repeat(15, auto);
         }
 
-        #dicaGuia {
+        #guia {
+            width: 200px;
+            height: 100px;
+            font-size: 1.10em;
+            text-align: center;
+            border: 4px solid rgba(255, 0, 0, 0.352);
             position: absolute;
-            bottom: 0;
-            right: 20px;
-
-            width: 150px;
-            height: 65px;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 73, 73, 0.5);
+            color: rgb(255, 223, 223);
             padding: 5px;
-            padding-top: 0;
-            font-size: 13px;
-            border: 3px solid rgba(255, 255, 255, 0.501);
-            border-bottom: none;
-            color: white;
-            background-color: rgba(9, 107, 255, 0.501);
+        }
 
+        #moedas {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            font-size: 1.7em;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            transform: translate(-50%);
+        }
+
+        #contM {
+            display: inline;
+            color: rgb(255, 230, 0);
+        }
+
+        #moedaDentroDiv {
+            background-color: yellow;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            z-index: 1;
+            /* position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%); */
+            grid-column-start: 1;
+            grid-row-start: 5;
+            width: 27px;
+            height: 27px;
+            z-index: 1;
+        }
+
+        #foto-moeda {
+            padding-bottom: 100px;
         }
 
         footer {
@@ -69,34 +106,20 @@
             bottom: 5px;
             right: 5px;
         }
-
-        .move-direita {
-            transition: 1s;
-            grid-column-start: 1;
-        }
-
-        .show {
-            transition: 1s;
-            opacity: 1;
-        }
-
-        .hide {
-            transition: 1s;
-            opacity: 0;
-        }
     </style>
     <title>Descubra-me</title>
 </head>
 
 <body id="body">
+    <div id="guia">Passe o mouse sobre o quadrado branco para começar!</div>
+    <div id="moedas"><img id="foto-moeda" src="pixil-frame-0.png" alt=""> ▶ <div id="contM">0</div>
+    </div>
 
-    <div id="inicio"></div>
+    <div id="inicio">
+    </div>
 
     <div id="jogo">
 
-    </div>
-    <div id="dicaGuia">
-        Para o jogo aparecer, basta passar o mouse no quadrado cinza. =D
     </div>
     <footer>
         4
@@ -109,7 +132,9 @@
 
     var fase = 1
 
+    var input = document.getElementById("input");
 
+    var guia = document.getElementById("guia");
     var inicio = document.getElementById('inicio');
     var jogo = document.getElementById("jogo");
 
@@ -121,13 +146,19 @@
         }
     }
 
+    function avisoGuia() {
+        var quadrado = document.createElement("div");
+        quadrado.classList.add("guia");
+    }
 
-    function adicionaPixelInicio(x, y) {
+
+    function adicionaPixelInicio(x, y, texto) {
         var pixel1 = document.createElement("div");
         pixel1.style.gridColumnStart = x;
         pixel1.style.gridRowStart = y;
         pixel1.style.backgroundColor = "lightgray";
         inicio.appendChild(pixel1);
+
         pixel1.addEventListener("mouseover", function (e) {
             debugger
 
@@ -166,6 +197,8 @@
                 jogo.appendChild(pxFinal);
             } else {
                 var pixel1 = document.createElement("div");
+                tamanhoPixelW = pixel1.offsetWidth;
+                tamanhoPixelH = pixel1.offsetHeight;
                 pixel1.style.gridColumnStart = x;
                 pixel1.style.gridRowStart = y;
                 pixel1.style.backgroundColor = cor;
@@ -260,22 +293,61 @@
         pixel1.style.gridColumnStart = x;
         pixel1.style.gridRowStart = y;
         pixel1.style.backgroundColor = "rgb(47, 127, 255)";
-        var interval = setInterval(function () {
-            debugger
-            pixel.classList.add('move-direita');
-            // if (pixel1.classList.contains("show") ) {
-            //     pixel1.classList.add("hide");
-            //     pixel1.classList.remove("show");
-            // } else {
-            //     pixel1.classList.remove("hide");
-            //     pixel1.classList.add("show");
-            // }
-
-        }, tempoMove);
+        pixel1.style.position = "absolute"
+        pixel1.style.width = tamanhoPixelW
+        pixel1.style.height = tamanhoPixelH
+        // pixel1.style.width = 27 + "px";
+        // pixel1.style.height = 27 + "px"
         jogo.appendChild(pixel1);
-        pixel1.addEventListener("mouseover", function (e) {
-            e.stopPropagation();
-        })
+
+        // elemento.innerText = elemento.offsetWidth // <<== Para saber qual é a largura do elemento.
+
+        if (fase == 3) {
+
+            var pixelAndado = 0
+            var pos = 0
+
+            var interval = setInterval(function () {
+                debugger
+
+                pixelAndado >= 163 ? pos-- : pos++
+
+                if (pixelAndado == 324) {
+                    pixelAndado = 0
+                }
+
+                pixelAndado++;
+                pixel1.style.left = pos + "px";
+                // input.value = pixelAndado;
+
+            }, tempoMove);
+            pixel1.addEventListener("mouseover", function (e) {
+                e.stopPropagation();
+            })
+
+        }
+    }
+    if (fase == 4) {
+    }
+
+    function pixelMoeda(x, y) {
+        debugger
+        var ppp = parseInt(jogo.offsetWidth / 15);
+        var contMoedas = document.getElementById('contM');
+        var numContM = 0;
+        contMoedas.innerText = numContM
+        var pixelMoeda = document.createElement("div");
+        // pixelMoeda.style.gridColumnStart = x;
+        // pixelMoeda.style.gridRowStart = y;
+        pixelMoeda.id = "moedaDentroDiv";
+        pixelMoeda.addEventListener("mouseover", function () {
+            pixelMoeda.style.display = "none";
+            numContM++;
+            contMoedas.innerText = numContM;
+        });
+
+
+        jogo.appendChild(pixelMoeda);
     }
 
     mostraInicio()
@@ -284,6 +356,7 @@
         debugger
         jogo.style.display = "none";
         inicio.style.display = "grid";
+        guia.style.display = "block"
 
         if (fase == 1) {
             limpaGrid("inicio");
@@ -332,6 +405,7 @@
     function carregaJogo() {
         debugger
         jogo.style.display = 'grid'
+        guia.style.display = "none"
         inicio.style.display = 'none'
         jogo.classList.add("container_2")
         adicionaPixel(1, 1, 'lightblue')
@@ -341,8 +415,10 @@
 
         adicionaPixel(1, 3);
         adicionaPixel(1, 4);
-        adicionaPixelMovel(1, 5, 1000);
-        // adicionaPixel(1, 5)
+        // adicionaPixelMovel(1, 5, 15);
+        adicionaPixel(1, 5)
+        adicionaPixel(1, 5)
+        pixelMoeda(1, 5)
         adicionaPixel(1, 6);
         adicionaPixel(1, 7);
         adicionaPixel(2, 7);
@@ -405,6 +481,7 @@
         debugger
         limpaGrid("jogo")
         jogo.style.display = 'grid';
+        guia.style.display = "none"
         inicio.style.display = 'none';
         jogo.classList.add("container_2");
 
@@ -480,6 +557,7 @@
         debugger
         limpaGrid("jogo")
         jogo.style.display = 'grid';
+        guia.style.display = "none"
         jogo.style.gridTemplateRows = "repeat(20, auto)";
         jogo.style.gridTemplateColumns = "repeat(20, auto)";
         inicio.style.display = 'none';
@@ -496,13 +574,13 @@
         adicionaPixel(4, 17);
         adicionaPixel(5, 17);
         adicionaPixel(5, 18);
-        adicionaPixel(5, 19);
-        adicionaPixel(6, 19);
-        adicionaPixel(7, 19);
-        adicionaPixel(8, 19);
-        adicionaPixel(9, 19);
-        adicionaPixel(10, 19);
-        adicionaPixel(11, 19);
+        adicionaPixel(5, 19, "lightblue");
+        adicionaPixelMovel(5, 19, 10);
+        // adicionaPixelMovel(7, 19);
+        // adicionaPixelMovel(8, 19);
+        // adicionaPixelMovel(9, 19);
+        // adicionaPixelMovel(10, 19);
+        adicionaPixel(11, 19, "lightblue");
         adicionaPixel(12, 19);
         adicionaPixel(12, 18);
         adicionaPixel(12, 17);
@@ -587,6 +665,8 @@
         debugger
         limpaGrid("jogo")
         jogo.style.display = 'grid';
+        guia.style.display = "none"
+
         inicio.style.display = 'none';
         jogo.classList.add("container_2");
 

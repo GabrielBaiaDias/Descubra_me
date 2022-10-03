@@ -34,6 +34,9 @@
         }
 
         #jogo {
+
+            position: absolute;
+
             width: 540px;
             height: 540px;
 
@@ -64,42 +67,6 @@
             padding: 5px;
         }
 
-        #moedas {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            font-size: 1.7em;
-            font-weight: bold;
-            font-family: 'Courier New', Courier, monospace;
-            transform: translate(-50%);
-        }
-
-        #contM {
-            display: inline;
-            color: rgb(255, 230, 0);
-        }
-
-        #moedaDentroDiv {
-            background-color: yellow;
-            border-radius: 50%;
-            width: 15px;
-            height: 15px;
-            z-index: 1;
-            /* position: relative;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%); */
-            grid-column-start: 1;
-            grid-row-start: 5;
-            width: 27px;
-            height: 27px;
-            z-index: 1;
-        }
-
-        #foto-moeda {
-            padding-bottom: 100px;
-        }
-
         footer {
             color: rgb(45, 45, 45);
             position: absolute;
@@ -112,8 +79,7 @@
 
 <body id="body">
     <div id="guia">Passe o mouse sobre o quadrado branco para começar!</div>
-    <div id="moedas"><img id="foto-moeda" src="pixil-frame-0.png" alt=""> ▶ <div id="contM">0</div>
-    </div>
+    <div id="contM">0</div>
 
     <div id="inicio">
     </div>
@@ -130,13 +96,16 @@
 </html>
 <script>
 
-    var fase = 1
+    var fase = 4
 
-    var input = document.getElementById("input");
+    // var input = document.getElementById("input");
 
     var guia = document.getElementById("guia");
     var inicio = document.getElementById('inicio');
     var jogo = document.getElementById("jogo");
+
+    var tamanhoPixelH = 0
+    var tamanhoPixelW = 0
 
     function limpaGrid(idElemento) {
         const grid = document.getElementById(idElemento);
@@ -230,6 +199,8 @@
                 pixel1.style.gridColumnStart = x;
                 pixel1.style.gridRowStart = y;
                 pixel1.style.backgroundColor = cor;
+                tamanhoPixelW = pixel1.offsetWidth;
+                tamanhoPixelH = pixel1.offsetHeight;
                 jogo.appendChild(pixel1);
                 pixel1.addEventListener("mouseover", function (e) {
                     e.stopPropagation();
@@ -259,6 +230,8 @@
                 pixel1.style.gridColumnStart = x;
                 pixel1.style.gridRowStart = y;
                 pixel1.style.backgroundColor = cor;
+                tamanhoPixelW = pixel1.offsetWidth;
+                tamanhoPixelH = pixel1.offsetHeight;
                 jogo.appendChild(pixel1);
                 pixel1.addEventListener("mouseover", function (e) {
                     e.stopPropagation();
@@ -268,23 +241,25 @@
         }
     }
 
-    function adicionaPixelArmadilha(x, y, tempoPisca) {
-        debugger
-        var pixel1 = document.createElement("div");
-        pixel1.style.gridColumnStart = x;
-        pixel1.style.gridRowStart = y;
-        pixel1.style.backgroundColor = "rgb(255, 187, 0)";
-        jogo.appendChild(pixel1);
-        var interval = setInterval(function () {
-            if (pixel1.style.display == 'none') {
-                pixel1.style.display = 'block';
-            } else {
-                pixel1.style.display = 'none';
-            }
-        }, tempoPisca);
-        pixel1.addEventListener("mouseover", function (e) {
-            e.stopPropagation();
-        })
+    function adicionaPixelArmadilha(x, y, tempoPisca, tempoEspera) {
+        setTimeout(function () {
+            var pixel1 = document.createElement("div");
+            pixel1.style.gridColumnStart = x;
+            pixel1.style.gridRowStart = y;
+            pixel1.style.backgroundColor = "rgb(255, 187, 0)";
+            jogo.appendChild(pixel1);
+            var interval = setInterval(function () {
+                if (pixel1.style.display == 'none') {
+                    pixel1.style.display = 'block';
+                } else {
+                    pixel1.style.display = 'none';
+                }
+            }, tempoPisca);
+            pixel1.addEventListener("mouseover", function (e) {
+                e.stopPropagation();
+            })
+        }, tempoEspera)
+
     }
 
     function adicionaPixelMovel(x, y, tempoMove) {
@@ -294,13 +269,15 @@
         pixel1.style.gridRowStart = y;
         pixel1.style.backgroundColor = "rgb(47, 127, 255)";
         pixel1.style.position = "absolute"
-        pixel1.style.width = tamanhoPixelW
-        pixel1.style.height = tamanhoPixelH
-        // pixel1.style.width = 27 + "px";
-        // pixel1.style.height = 27 + "px"
+        if (fase == 3 || fase == 4) {
+            pixel1.style.width = 27 + "px"
+            pixel1.style.height = 27 + "px"
+        }
         jogo.appendChild(pixel1);
 
         // elemento.innerText = elemento.offsetWidth // <<== Para saber qual é a largura do elemento.
+
+        // elemento.innerText = elemento.offsetHeight // <<== Para saber qual é a altura do elemento.
 
         if (fase == 3) {
 
@@ -326,28 +303,42 @@
             })
 
         }
-    }
-    if (fase == 4) {
-    }
+        if (fase == 4) {
+            debugger
 
-    function pixelMoeda(x, y) {
-        debugger
-        var ppp = parseInt(jogo.offsetWidth / 15);
-        var contMoedas = document.getElementById('contM');
-        var numContM = 0;
-        contMoedas.innerText = numContM
-        var pixelMoeda = document.createElement("div");
-        // pixelMoeda.style.gridColumnStart = x;
-        // pixelMoeda.style.gridRowStart = y;
-        pixelMoeda.id = "moedaDentroDiv";
-        pixelMoeda.addEventListener("mouseover", function () {
-            pixelMoeda.style.display = "none";
-            numContM++;
-            contMoedas.innerText = numContM;
-        });
+            var pixelAndado = 0
+            var pos = 0
 
+            var interval = setInterval(function () {
+                debugger
 
-        jogo.appendChild(pixelMoeda);
+                if (pixelAndado >= 27 && pixelAndado < 27*2) {
+                    pos++
+                    pixel1.style.left = pos + "px";
+                }
+
+                if (pixelAndado >= 27*2 && pixelAndado < 27*3) {
+                    pos++
+                    pixel1.style.top = pos + "px";
+                }
+
+                if (pixelAndado >= 27*3 && pixelAndado < 27*4) {
+                    pos--
+                    pixel1.style.left = pos + "px";
+                }
+
+                if (pixelAndado == 27*4) {
+                    pixel1.style.top = pos + "px";
+                    pos--
+                }
+
+                pixelAndado++;
+
+            }, tempoMove)
+            pixel1.addEventListener("mouseover", function (e) {
+                e.stopPropagation();
+            })
+        }
     }
 
     mostraInicio()
@@ -383,6 +374,8 @@
         }
         if (fase == 4) {
             limpaGrid("inicio");
+            inicio.style.gridTemplateRows = "repeat(20, auto)";
+            inicio.style.gridTemplateColumns = "repeat(20, auto)";
             adicionaPixelInicio(1, 2);
             adicionaPixelInicio(2, 2);
             adicionaPixelInicio(1, 1);
@@ -415,10 +408,7 @@
 
         adicionaPixel(1, 3);
         adicionaPixel(1, 4);
-        // adicionaPixelMovel(1, 5, 15);
-        adicionaPixel(1, 5)
-        adicionaPixel(1, 5)
-        pixelMoeda(1, 5)
+        adicionaPixel(1, 5);
         adicionaPixel(1, 6);
         adicionaPixel(1, 7);
         adicionaPixel(2, 7);
@@ -483,7 +473,6 @@
         jogo.style.display = 'grid';
         guia.style.display = "none"
         inicio.style.display = 'none';
-        jogo.classList.add("container_2");
 
         adicionaPixel(15, 1, "lightpink");
         adicionaPixel(15, 2, "lightpink");
@@ -561,7 +550,6 @@
         jogo.style.gridTemplateRows = "repeat(20, auto)";
         jogo.style.gridTemplateColumns = "repeat(20, auto)";
         inicio.style.display = 'none';
-        jogo.classList.add("container_2");
 
         adicionaPixel(2, 19, "lightsalmon");
         adicionaPixel(1, 19, "lightsalmon");
@@ -666,15 +654,70 @@
         limpaGrid("jogo")
         jogo.style.display = 'grid';
         guia.style.display = "none"
-
+        jogo.style.gridTemplateRows = "repeat(20, auto)";
+        jogo.style.gridTemplateColumns = "repeat(20, auto)";
         inicio.style.display = 'none';
-        jogo.classList.add("container_2");
 
         adicionaPixel(2, 1, "lightseagreen");
         adicionaPixel(1, 1, "lightseagreen");
         adicionaPixel(2, 2, "lightseagreen");
         adicionaPixel(1, 2, "lightseagreen");
 
+        adicionaPixel(3, 2);
+        adicionaPixel(4, 2);
+        adicionaPixel(5, 2);
+        adicionaPixel(6, 2);
+        adicionaPixel(7, 2);
+        adicionaPixel(8, 2);
+        adicionaPixel(9, 2);
+        adicionaPixel(10, 2);
+        adicionaPixel(11, 2);
+        adicionaPixel(11, 3);
+        adicionaPixel(12, 3);
+        adicionaPixel(13, 3);
+        adicionaPixel(13, 2);
+        adicionaPixel(13, 1);
+        adicionaPixel(14, 1);
+        adicionaPixel(15, 1);
+        adicionaPixel(16, 1);
+        adicionaPixel(17, 1);
+        adicionaPixel(18, 1);
+        adicionaPixelMovel(19, 1, 1);
+        adicionaPixel(20, 3);
+        adicionaPixel(20, 4);
+        adicionaPixel(19, 4);
+        adicionaPixel(18, 4);
+        adicionaPixel(17, 4);
+        adicionaPixel(16, 4);
+        adicionaPixel(16, 5);
+        adicionaPixel(16, 6);
+        adicionaPixel(15, 6);
+        adicionaPixel(14, 6);
+        adicionaPixel(13, 6);
+        adicionaPixel(13, 5);
+        adicionaPixel(12, 5);
+        adicionaPixel(11, 5);
+        adicionaPixelArmadilha(10, 5, 550,);
+        adicionaPixelArmadilha(9, 5, 550,);
+        adicionaPixelArmadilha(8, 5, 550,);
+        adicionaPixelArmadilha(8, 6, 550,);
+        adicionaPixel(8, 7);
+        adicionaPixelArmadilha(7, 7, 550, 500);
+        adicionaPixelArmadilha(6, 7, 550, 500);
+        adicionaPixelArmadilha(6, 6, 550, 500);
+        adicionaPixelArmadilha(6, 5, 550, 500);
+        adicionaPixel(6, 4);
+        adicionaPixel(5, 4);
+        adicionaPixel(4, 4);
+        adicionaPixelArmadilha(3, 4, 550,);
+        adicionaPixelArmadilha(3, 5, 550,);
+        adicionaPixelArmadilha(3, 6, 550,);
+        adicionaPixelArmadilha(3, 7, 550,);
+        adicionaPixelArmadilha(3, 8, 550,);
+        adicionaPixel(4, 8);
+        adicionaPixel(4, 9);
+        adicionaPixel(4, 10);
+        adicionaPixel(5, 10);
 
         adicionaPixel(1, 20, "lightgreen");
         adicionaPixel(2, 20, "lightgreen");

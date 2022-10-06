@@ -83,12 +83,13 @@
 
     <div id="inicio">
     </div>
-
     <div id="jogo">
 
     </div>
     <footer>
         4
+        <input type="number " id="input" style="width: 300px;">
+
     </footer>
 
 </body>
@@ -98,7 +99,7 @@
 
     var fase = 4
 
-    // var input = document.getElementById("input");
+    var input = document.getElementById("input");
 
     var guia = document.getElementById("guia");
     var inicio = document.getElementById('inicio');
@@ -262,8 +263,9 @@
 
     }
 
-    function adicionaPixelMovel(x, y, tempoMove) {
+    function adicionaPixelMovel(x, y, tempoMove, parte) {
         debugger
+
         var pixel1 = document.createElement("div");
         pixel1.style.gridColumnStart = x;
         pixel1.style.gridRowStart = y;
@@ -304,40 +306,94 @@
 
         }
         if (fase == 4) {
-            debugger
-
-            var pixelAndado = 0
-            var pos = 0
-
-            var interval = setInterval(function () {
+            var partes = parte
+            if (partes == 1) {
                 debugger
 
-                if (pixelAndado >= 27 && pixelAndado < 27*2) {
-                    pos++
-                    pixel1.style.left = pos + "px";
-                }
+                var pixelAndado = 26
+                var posX = 0
+                var posY = 0
 
-                if (pixelAndado >= 27*2 && pixelAndado < 27*3) {
-                    pos++
-                    pixel1.style.top = pos + "px";
-                }
+                var interval = setInterval(function () {
+                    debugger
 
-                if (pixelAndado >= 27*3 && pixelAndado < 27*4) {
-                    pos--
-                    pixel1.style.left = pos + "px";
-                }
+                    if (pixelAndado >= 27 && pixelAndado < 54) {
+                        posX++
+                        pixel1.style.left = posX + "px";
+                    }
 
-                if (pixelAndado == 27*4) {
-                    pixel1.style.top = pos + "px";
-                    pos--
-                }
+                    if (pixelAndado >= 54 && pixelAndado < 81) {
+                        posY++
+                        pixel1.style.top = posY + "px";
+                    }
 
-                pixelAndado++;
+                    if (pixelAndado >= 81 && pixelAndado < 108) {
+                        posX--
+                        pixel1.style.left = posX + "px";
+                    }
 
-            }, tempoMove)
-            pixel1.addEventListener("mouseover", function (e) {
-                e.stopPropagation();
-            })
+                    if (pixelAndado >= 108 && pixelAndado < 235) {
+                        posY--
+                        pixel1.style.top = posY + "px";
+                    }
+
+                    if (pixelAndado == 134) {
+                        posX = 0
+                        posY = 0
+                        pixelAndado = 26
+                    }
+
+                    pixelAndado++;
+
+                }, tempoMove)
+                pixel1.addEventListener("mouseover", function (e) {
+                    e.stopPropagation();
+                })
+            } if (partes == 2) {
+                debugger
+
+                var posX = 0
+                var posY = 0
+                var pixelAndado = 0
+
+                var interval = setInterval(function () {
+                    var vaiVolta = true
+
+                    if (pixelAndado >= 0 && pixelAndado < 108 || pixelAndado >= 162 && pixelAndado < 270) {
+                        posX++
+                        pixel1.style.left = posX + "px";
+
+                    }
+
+                    if (pixelAndado >= 108 && pixelAndado < 162 || pixelAndado >= 270 && pixelAndado < 351) {
+                        posY++
+                        pixel1.style.top = posY + "px";
+                    }
+
+                    if (pixelAndado == 351 && pixelAndado >= 270) {
+                        posY--
+                        pixel1.style.top = posY + "px";
+                    }
+
+                    if (pixelAndado) {
+
+                    }
+
+                    // if (pixelAndado == 351) {
+                    //     jogo.removeChild(pixel1);
+                    //     adicionaPixelMovel(10, 10, 10, 2);
+                    // }
+
+                    pixelAndado++
+                    input.value = "pixelA " + pixelAndado + " | posY " + posY + "| posX " + posX;
+
+                }, tempoMove)
+
+                pixel1.addEventListener("mouseover", function (e) {
+                    e.stopPropagation();
+                })
+
+            }
         }
     }
 
@@ -682,7 +738,7 @@
         adicionaPixel(16, 1);
         adicionaPixel(17, 1);
         adicionaPixel(18, 1);
-        adicionaPixelMovel(19, 1, 1);
+        adicionaPixelMovel(19, 1, 15, 1);
         adicionaPixel(20, 3);
         adicionaPixel(20, 4);
         adicionaPixel(19, 4);
@@ -702,10 +758,10 @@
         adicionaPixelArmadilha(8, 5, 550,);
         adicionaPixelArmadilha(8, 6, 550,);
         adicionaPixel(8, 7);
-        adicionaPixelArmadilha(7, 7, 550, 500);
-        adicionaPixelArmadilha(6, 7, 550, 500);
-        adicionaPixelArmadilha(6, 6, 550, 500);
-        adicionaPixelArmadilha(6, 5, 550, 500);
+        adicionaPixelArmadilha(7, 7, 550, 550);
+        adicionaPixelArmadilha(6, 7, 550, 550);
+        adicionaPixelArmadilha(6, 6, 550, 550);
+        adicionaPixelArmadilha(6, 5, 550, 550);
         adicionaPixel(6, 4);
         adicionaPixel(5, 4);
         adicionaPixel(4, 4);
@@ -718,6 +774,27 @@
         adicionaPixel(4, 9);
         adicionaPixel(4, 10);
         adicionaPixel(5, 10);
+        adicionaPixel(6, 10);
+        adicionaPixel(6, 11);
+        adicionaPixel(7, 11);
+        adicionaPixel(8, 11);
+        adicionaPixel(9, 11);
+        adicionaPixel(10, 11);
+        adicionaPixel(10, 10, "lightblue");
+        adicionaPixelMovel(10, 10, 10, 2);
+        adicionaPixel(11, 10, "black");
+        adicionaPixel(12, 10, "yellow");
+        adicionaPixel(13, 10, "black");
+        adicionaPixel(14, 10, "yellow");
+        adicionaPixel(14, 11, "black");
+        adicionaPixel(14, 12, "yellow");
+        adicionaPixel(15, 12, "black");
+        adicionaPixel(16, 12, "yellow");
+        adicionaPixel(17, 12, "black");
+        adicionaPixel(18, 12, "yellow");
+        adicionaPixel(18, 13, "black");
+        adicionaPixel(18, 14, "yellow");
+        adicionaPixel(18, 15, "lightblue");
 
         adicionaPixel(1, 20, "lightgreen");
         adicionaPixel(2, 20, "lightgreen");

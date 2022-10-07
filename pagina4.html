@@ -19,6 +19,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            color: rgba(0, 0, 255, 0.162);
         }
 
         #inicio {
@@ -74,6 +75,7 @@
             right: 5px;
         }
     </style>
+    <!-- <script src="JavaScript/pagina4.js"></script> -->
     <title>Descubra-me</title>
 </head>
 
@@ -97,13 +99,13 @@
 </html>
 <script>
 
-    var fase = 4
+    var fase = 1
 
     var input = document.getElementById("input");
 
     var guia = document.getElementById("guia");
     var inicio = document.getElementById('inicio');
-    var jogo = document.getElementById("jogo");
+    var jogo = document.querySelector("#jogo");
 
     var tamanhoPixelH = 0
     var tamanhoPixelW = 0
@@ -365,24 +367,23 @@
 
                     }
 
-                    if (pixelAndado >= 108 && pixelAndado < 162 || pixelAndado >= 270 && pixelAndado < 351) {
+                    if (pixelAndado >= 108 && pixelAndado < 162 || pixelAndado >= 270 && pixelAndado <= 351) {
                         posY++
                         pixel1.style.top = posY + "px";
                     }
 
-                    if (pixelAndado == 351 && pixelAndado >= 270) {
-                        posY--
-                        pixel1.style.top = posY + "px";
-                    }
-
-                    if (pixelAndado) {
-
-                    }
-
-                    // if (pixelAndado == 351) {
-                    //     jogo.removeChild(pixel1);
-                    //     adicionaPixelMovel(10, 10, 10, 2);
+                    // if (pixelAndado == 351 && pixelAndado >= 270) {
+                    // posY--
+                    // pixel1.style.top = posY + "px";
                     // }
+
+                    if (pixelAndado == 351) {
+                        pixelAndado = 0;
+                        posX = 1;
+                        posY = 0;
+                        pixel1.style.top = posY + "px";
+                        pixel1.style.left = posX + "px";
+                    }
 
                     pixelAndado++
                     input.value = "pixelA " + pixelAndado + " | posY " + posY + "| posX " + posX;
@@ -781,20 +782,36 @@
         adicionaPixel(9, 11);
         adicionaPixel(10, 11);
         adicionaPixel(10, 10, "lightblue");
-        adicionaPixelMovel(10, 10, 10, 2);
-        adicionaPixel(11, 10, "black");
-        adicionaPixel(12, 10, "yellow");
-        adicionaPixel(13, 10, "black");
-        adicionaPixel(14, 10, "yellow");
-        adicionaPixel(14, 11, "black");
-        adicionaPixel(14, 12, "yellow");
-        adicionaPixel(15, 12, "black");
-        adicionaPixel(16, 12, "yellow");
-        adicionaPixel(17, 12, "black");
-        adicionaPixel(18, 12, "yellow");
-        adicionaPixel(18, 13, "black");
-        adicionaPixel(18, 14, "yellow");
+        adicionaPixelMovel(10, 10, 20, 2);
+        adicionaPixel(14, 10, "rgba(0, 0, 255, 0.100)");
+        adicionaPixel(14, 12, "rgba(0, 0, 255, 0.100)");
+        adicionaPixel(18, 12, "rgba(0, 0, 255, 0.100)");
         adicionaPixel(18, 15, "lightblue");
+        adicionaPixel(18, 16);
+        adicionaPixel(18, 17);
+        adicionaPixel(18, 18);
+        adicionaPixel(17, 18);
+        adicionaPixel(16, 18);
+        adicionaPixel(15, 18);
+        adicionaPixel(15, 17);
+        adicionaPixel(15, 16);
+        adicionaPixel(14, 16);
+        adicionaPixel(13, 16);
+        adicionaPixel(13, 15);
+        adicionaPixelArmadilha(12, 15, 550);
+        adicionaPixelArmadilha(11, 15, 550);
+        adicionaPixelArmadilha(10, 15, 550);
+        adicionaPixelArmadilha(9, 15, 550);
+        adicionaPixelArmadilha(8, 15, 550);
+        adicionaPixel(7, 15);
+        adicionaPixel(7, 16);
+        adicionaPixel(6, 16);
+        adicionaPixel(6, 17);
+        adicionaPixel(6, 18);
+        adicionaPixel(6, 19);
+        adicionaPixel(5, 19);
+        adicionaPixel(4, 19);
+        adicionaPixel(3, 19);
 
         adicionaPixel(1, 20, "lightgreen");
         adicionaPixel(2, 20, "lightgreen");

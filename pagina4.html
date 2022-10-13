@@ -81,9 +81,6 @@
 
 <body id="body">
     <div id="guia">Passe o mouse sobre o quadrado branco para começar!
-        |
-        fazer uma fase em que o quadrado movel passe a fase inteira e em certas parte o jogador precisa q o quadrado
-        movel passe ali para avancar na fase (no meio pode colocar alguns quadrados armadilhas para melhorar)
     </div>
     <div id="contM">0</div>
 
@@ -150,10 +147,11 @@
             } else if (fase == 4) {
                 limpaGrid("jogo");
                 carregaJogo4()
-            } else if (fase == 5) {
-                limpaGrid("jogo");
-                carregaJogo5()
             }
+            // } else if (fase == 5) {
+            //     limpaGrid("jogo");
+            //     carregaJogo5()
+            // }
 
 
             e.stopPropagation();
@@ -478,12 +476,14 @@
         }
         if (fase == 5) {
             limpaGrid("inicio");
-            inicio.style.gridTemplateRows = "repeat(20, auto)";
-            inicio.style.gridTemplateColumns = "repeat(20, auto)";
-            adicionaPixelInicio(19, 20);
-            adicionaPixelInicio(20, 19);
-            adicionaPixelInicio(20, 20);
-            adicionaPixelInicio(19, 19);
+            guia.style.padding = 2 + "px"
+            guia.innerHTML = "<h4>Mais Atualizações em breve!</h4>";
+        //     inicio.style.gridTemplateRows = "repeat(20, auto)";
+        //     inicio.style.gridTemplateColumns = "repeat(20, auto)";
+        //     adicionaPixelInicio(19, 20);
+        //     adicionaPixelInicio(20, 19);
+        //     adicionaPixelInicio(20, 20);
+        //     adicionaPixelInicio(19, 19);
         }
 
         if (fase == 0) {
@@ -495,10 +495,10 @@
 
     jogo.addEventListener("mouseover", function () {
         //document.location.reload(); //  <<<<<<==<<==<===================
-        // if (fase >= 1) {
-        //     fase = fase - 2
-        // }
-        // mostraInicio()
+        if (fase >= 1) {
+            fase = fase - 2
+        }
+        mostraInicio()
     })
 
     //------------------------------------------------------------//
@@ -886,83 +886,83 @@ jogo
     //------------------------------------------------------------//
     //=============--- INÍCIO CARREGAJOGO NÍVEL 4 ---=============//
 
-    function carregaJogo5() {
-        debugger
-        limpaGrid("jogo")
-        jogo.style.display = 'grid';
-        guia.style.display = "none"
-        jogo.style.gridTemplateRows = "repeat(20, auto)";
-        jogo.style.gridTemplateColumns = "repeat(20, auto)";
-        inicio.style.display = 'none';
+    // function carregaJogo5() {
+    //     debugger
+    //     limpaGrid("jogo")
+    //     jogo.style.display = 'grid';
+    //     guia.style.display = "none"
+    //     jogo.style.gridTemplateRows = "repeat(20, auto)";
+    //     jogo.style.gridTemplateColumns = "repeat(20, auto)";
+    //     inicio.style.display = 'none';
 
-        adicionaPixel(20, 19, "lightseagreen");
-        adicionaPixel(19, 19, "lightseagreen");
-        adicionaPixel(20, 20, "lightseagreen");
-        adicionaPixel(19, 20, "lightseagreen");
+    //     adicionaPixel(20, 19, "lightseagreen");
+    //     adicionaPixel(19, 19, "lightseagreen");
+    //     adicionaPixel(20, 20, "lightseagreen");
+    //     adicionaPixel(19, 20, "lightseagreen");
 
-        adicionaPixel(18, 19);
-        adicionaPixel(17, 19);
-        adicionaPixel(16, 19);
-        adicionaPixel(15, 19);
-        adicionaPixel(14, 19);
-        adicionaPixel(13, 19);
-        adicionaPixel(12, 19);
-        adicionaPixel(12, 18);
-        adicionaPixel(12, 17);
-        adicionaPixel(11, 17);
-        adicionaPixel(10, 17);
-        adicionaPixel(9, 17);
-        adicionaPixel(8, 17);
-        adicionaPixel(7, 17);
-        adicionaPixel(6, 17);
-        adicionaPixel(5, 17);
-        adicionaPixel(4, 17);
-        adicionaPixel(4, 16);
-        adicionaPixel(4, 15);
-        adicionaPixel(4, 14);
-        adicionaPixel(4, 13);
-        adicionaPixel(4, 12);
-        adicionaPixel(5, 12);
-        adicionaPixel(6, 12);
-        adicionaPixel(7, 12);
-        adicionaPixel(8, 12);
-        adicionaPixel(9, 12);
-        adicionaPixel(10, 12);
-        adicionaPixel(11, 12);
-        adicionaPixel(12, 12);
-        adicionaPixel(13, 12);
-        adicionaPixel(14, 12);
-        adicionaPixel(15, 12);
-        adicionaPixel(15, 11);
-        adicionaPixel(15, 10);
-        adicionaPixel(15, 9);
-        adicionaPixel(14, 9);
-        adicionaPixel(13, 9);
-        adicionaPixel(12, 9);
-        adicionaPixel(11, 9);
-        adicionaPixel(10, 9);
-        adicionaPixel(10, 8);
-        adicionaPixel(10, 7);
-        adicionaPixel(10, 6);
-        adicionaPixel(10, 5);
-        adicionaPixel(11, 5);
-        adicionaPixel(12, 5);
-        adicionaPixel(13, 5);
-        adicionaPixel(14, 5);
-        adicionaPixel(15, 5);
-        adicionaPixel(16, 5);
-        adicionaPixel(17, 5);
-        adicionaPixel(18, 5);
-        adicionaPixel(18, 4);
-        adicionaPixel(18, 3);
-        adicionaPixel(18, 2);
+    //     adicionaPixel(18, 19);
+    //     adicionaPixel(17, 19);
+    //     adicionaPixel(16, 19);
+    //     adicionaPixel(15, 19);
+    //     adicionaPixel(14, 19);
+    //     adicionaPixel(13, 19);
+    //     adicionaPixel(12, 19);
+    //     adicionaPixel(12, 18);
+    //     adicionaPixel(12, 17);
+    //     adicionaPixel(11, 17);
+    //     adicionaPixel(10, 17);
+    //     adicionaPixel(9, 17);
+    //     adicionaPixel(8, 17);
+    //     adicionaPixel(7, 17);
+    //     adicionaPixel(6, 17);
+    //     adicionaPixel(5, 17);
+    //     adicionaPixel(4, 17);
+    //     adicionaPixel(4, 16);
+    //     adicionaPixel(4, 15);
+    //     adicionaPixel(4, 14);
+    //     adicionaPixel(4, 13);
+    //     adicionaPixel(4, 12);
+    //     adicionaPixel(5, 12);
+    //     adicionaPixel(6, 12);
+    //     adicionaPixel(7, 12);
+    //     adicionaPixel(8, 12);
+    //     adicionaPixel(9, 12);
+    //     adicionaPixel(10, 12);
+    //     adicionaPixel(11, 12);
+    //     adicionaPixel(12, 12);
+    //     adicionaPixel(13, 12);
+    //     adicionaPixel(14, 12);
+    //     adicionaPixel(15, 12);
+    //     adicionaPixel(15, 11);
+    //     adicionaPixel(15, 10);
+    //     adicionaPixel(15, 9);
+    //     adicionaPixel(14, 9);
+    //     adicionaPixel(13, 9);
+    //     adicionaPixel(12, 9);
+    //     adicionaPixel(11, 9);
+    //     adicionaPixel(10, 9);
+    //     adicionaPixel(10, 8);
+    //     adicionaPixel(10, 7);
+    //     adicionaPixel(10, 6);
+    //     adicionaPixel(10, 5);
+    //     adicionaPixel(11, 5);
+    //     adicionaPixel(12, 5);
+    //     adicionaPixel(13, 5);
+    //     adicionaPixel(14, 5);
+    //     adicionaPixel(15, 5);
+    //     adicionaPixel(16, 5);
+    //     adicionaPixel(17, 5);
+    //     adicionaPixel(18, 5);
+    //     adicionaPixel(18, 4);
+    //     adicionaPixel(18, 3);
+    //     adicionaPixel(18, 2);
 
-        adicionaPixel(19, 2, "lightgreen");
-        adicionaPixel(20, 2, "lightgreen");
-        adicionaPixel(19, 1, "lightgreen");
-        adicionaPixel(20, 1, "lightgreen");
-        fase++
-    }
+    //     adicionaPixel(19, 2, "lightgreen");
+    //     adicionaPixel(20, 2, "lightgreen");
+    //     adicionaPixel(19, 1, "lightgreen");
+    //     adicionaPixel(20, 1, "lightgreen");
+    //     fase++
+    // }
 
     //==============--- FINAL CARREGAJOGO NÍVEL 4 ---==============//
     //-------------------------------------------------------------//

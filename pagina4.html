@@ -80,7 +80,11 @@
 </head>
 
 <body id="body">
-    <div id="guia">Passe o mouse sobre o quadrado branco para começar!</div>
+    <div id="guia">Passe o mouse sobre o quadrado branco para começar!
+        |
+        fazer uma fase em que o quadrado movel passe a fase inteira e em certas parte o jogador precisa q o quadrado
+        movel passe ali para avancar na fase (no meio pode colocar alguns quadrados armadilhas para melhorar)
+    </div>
     <div id="contM">0</div>
 
     <div id="inicio">
@@ -89,9 +93,8 @@
 
     </div>
     <footer>
+        <!-- <input type="number" id="input"> -->
         4
-        <input type="number " id="input" style="width: 300px;">
-
     </footer>
 
 </body>
@@ -99,7 +102,8 @@
 </html>
 <script>
 
-    var fase = 1
+    var fase = 4
+
 
     var input = document.getElementById("input");
 
@@ -135,17 +139,20 @@
             debugger
 
             if (fase == 1) {
+                limpaGrid("jogo");
                 carregaJogo()
-                fase++
             } else if (fase == 2) {
+                limpaGrid("jogo");
                 carregaJogo2()
-                fase++
             } else if (fase == 3) {
+                limpaGrid("jogo");
                 carregaJogo3()
-                fase++
             } else if (fase == 4) {
+                limpaGrid("jogo");
                 carregaJogo4()
-                fase++
+            } else if (fase == 5) {
+                limpaGrid("jogo");
+                carregaJogo5()
             }
 
 
@@ -161,7 +168,6 @@
                 pxFinal.style.gridColumnStart = x;
                 pxFinal.style.gridRowStart = y;
                 pxFinal.style.backgroundColor = cor;
-                console.log("verde")
                 pxFinal.addEventListener("mouseover", function (e) {
                     mostraInicio()
                     e.stopPropagation();
@@ -191,7 +197,6 @@
                 pxFinal.style.gridColumnStart = x;
                 pxFinal.style.gridRowStart = y;
                 pxFinal.style.backgroundColor = cor;
-                console.log("verde")
                 pxFinal.addEventListener("mouseover", function (e) {
                     mostraInicio()
                     e.stopPropagation();
@@ -222,7 +227,35 @@
                 pxFinal.style.gridColumnStart = x;
                 pxFinal.style.gridRowStart = y;
                 pxFinal.style.backgroundColor = cor;
-                console.log("verde")
+                pxFinal.addEventListener("mouseover", function (e) {
+                    mostraInicio()
+                    e.stopPropagation();
+                })
+                jogo.appendChild(pxFinal);
+            } else {
+                var pixel1 = document.createElement("div");
+                pixel1.style.gridColumnStart = x;
+                pixel1.style.gridRowStart = y;
+                pixel1.style.backgroundColor = cor;
+                tamanhoPixelW = pixel1.offsetWidth;
+                tamanhoPixelH = pixel1.offsetHeight;
+                jogo.appendChild(pixel1);
+                pixel1.addEventListener("mouseover", function (e) {
+                    e.stopPropagation();
+                })
+
+            }
+        }
+
+        if (fase == 5) {
+            if (x == 19 && y == 2 ||
+                x == 20 && y == 2 ||
+                x == 19 && y == 1 ||
+                x == 20 && y == 1) {
+                var pxFinal = document.createElement("div");
+                pxFinal.style.gridColumnStart = x;
+                pxFinal.style.gridRowStart = y;
+                pxFinal.style.backgroundColor = cor;
                 pxFinal.addEventListener("mouseover", function (e) {
                     mostraInicio()
                     e.stopPropagation();
@@ -268,6 +301,11 @@
     function adicionaPixelMovel(x, y, tempoMove, parte) {
         debugger
 
+        let pixelAndado = 0;
+        let posX = 0;
+        let posY = 0;
+        var pos = 0;
+
         var pixel1 = document.createElement("div");
         pixel1.style.gridColumnStart = x;
         pixel1.style.gridRowStart = y;
@@ -285,8 +323,8 @@
 
         if (fase == 3) {
 
-            var pixelAndado = 0
-            var pos = 0
+            pixelAndado = 0
+            pos = 0
 
             var interval = setInterval(function () {
                 debugger
@@ -312,9 +350,9 @@
             if (partes == 1) {
                 debugger
 
-                var pixelAndado = 26
-                var posX = 0
-                var posY = 0
+                pixelAndado = 26
+                posX = 0
+                posY = 0
 
                 var interval = setInterval(function () {
                     debugger
@@ -354,9 +392,9 @@
             } if (partes == 2) {
                 debugger
 
-                var posX = 0
-                var posY = 0
-                var pixelAndado = 0
+                posX = 0
+                posY = 0
+                pixelAndado = 0
 
                 var interval = setInterval(function () {
                     var vaiVolta = true
@@ -372,21 +410,26 @@
                         pixel1.style.top = posY + "px";
                     }
 
-                    // if (pixelAndado == 351 && pixelAndado >= 270) {
-                    // posY--
-                    // pixel1.style.top = posY + "px";
-                    // }
+                    if (pixelAndado == 165) {
+                        debugger
+                        fase--
+                        adicionaPixelMovel(10, 10, 20, 2);
+                        fase++
+                    }
 
                     if (pixelAndado == 351) {
-                        pixelAndado = 0;
-                        posX = 1;
-                        posY = 0;
-                        pixel1.style.top = posY + "px";
-                        pixel1.style.left = posX + "px";
+                        jogo.removeChild(pixel1);
                     }
 
                     pixelAndado++
-                    input.value = "pixelA " + pixelAndado + " | posY " + posY + "| posX " + posX;
+                    console.log(pixelAndado);
+                    // input.value = pixelAndado 
+
+                    // if (pixelAndado == 165) {
+                    //     var sss = 0
+                    //     sss = input.value += pixelAndado
+                    //     input.value = pixelAndado + "|" + sss
+                    // }
 
                 }, tempoMove)
 
@@ -408,6 +451,8 @@
 
         if (fase == 1) {
             limpaGrid("inicio");
+            inicio.style.gridTemplateRows = "repeat(15, auto)";
+            inicio.style.gridTemplateColumns = "repeat(15, auto)";
             adicionaPixelInicio(1, 1);
             adicionaPixelInicio(1, 2);
             adicionaPixelInicio(2, 2);
@@ -415,6 +460,8 @@
         }
         if (fase == 2) {
             limpaGrid("inicio");
+            inicio.style.gridTemplateRows = "repeat(15, auto)";
+            inicio.style.gridTemplateColumns = "repeat(15, auto)";
             adicionaPixelInicio(15, 1);
             adicionaPixelInicio(15, 2);
             adicionaPixelInicio(14, 2);
@@ -438,16 +485,30 @@
             adicionaPixelInicio(1, 1);
             adicionaPixelInicio(2, 1);
         }
+        if (fase == 5) {
+            limpaGrid("inicio");
+            inicio.style.gridTemplateRows = "repeat(20, auto)";
+            inicio.style.gridTemplateColumns = "repeat(20, auto)";
+            adicionaPixelInicio(19, 20);
+            adicionaPixelInicio(20, 19);
+            adicionaPixelInicio(20, 20);
+            adicionaPixelInicio(19, 19);
+        }
+
+        if (fase == 0) {
+            fase++
+        }
     }
 
     var jogo = document.getElementById("jogo");
 
     jogo.addEventListener("mouseover", function () {
-        console.log("jogo")
         //document.location.reload(); //  <<<<<<==<<==<===================
-
+        // if (fase >= 1) {
+        //     fase = fase - 2
+        // }
+        // mostraInicio()
     })
-
 
     //------------------------------------------------------------//
     //=============--- INÍCIO CARREGAJOGO NÍVEL 1 ---=============//
@@ -457,12 +518,14 @@
         jogo.style.display = 'grid'
         guia.style.display = "none"
         inicio.style.display = 'none'
+        jogo.style.gridTemplateRows = "repeat(15, auto)";
+        jogo.style.gridTemplateColumns = "repeat(15, auto)";
         jogo.classList.add("container_2")
         adicionaPixel(1, 1, 'lightblue')
         adicionaPixel(1, 2, 'lightblue')
         adicionaPixel(2, 1, 'lightblue')
         adicionaPixel(2, 2, 'lightblue')
-
+jogo
         adicionaPixel(1, 3);
         adicionaPixel(1, 4);
         adicionaPixel(1, 5);
@@ -516,6 +579,7 @@
         adicionaPixel(14, 14, 'lightgreen');
         adicionaPixel(15, 14, 'lightgreen');
         adicionaPixel(15, 15, 'lightgreen');
+        fase++
     }
 
     //==============--- FINAL CARREGAJOGO NÍVEL 1 ---==============//
@@ -530,6 +594,8 @@
         jogo.style.display = 'grid';
         guia.style.display = "none"
         inicio.style.display = 'none';
+        jogo.style.gridTemplateRows = "repeat(15, auto)";
+        jogo.style.gridTemplateColumns = "repeat(15, auto)";
 
         adicionaPixel(15, 1, "lightpink");
         adicionaPixel(15, 2, "lightpink");
@@ -591,6 +657,7 @@
         adicionaPixel(15, 14, "lightgreen");
         adicionaPixel(14, 14, "lightgreen");
         adicionaPixel(15, 15, "lightgreen");
+        fase++
     }
 
     //==============--- FINAL CARREGAJOGO NÍVEL 2 ---==============//
@@ -620,7 +687,7 @@
         adicionaPixel(5, 17);
         adicionaPixel(5, 18);
         adicionaPixel(5, 19, "lightblue");
-        adicionaPixelMovel(5, 19, 10);
+        adicionaPixelMovel(5, 19, 13);
         // adicionaPixelMovel(7, 19);
         // adicionaPixelMovel(8, 19);
         // adicionaPixelMovel(9, 19);
@@ -698,13 +765,14 @@
         adicionaPixel(20, 2, "lightgreen");
         adicionaPixel(19, 1, "lightgreen");
         adicionaPixel(19, 2, "lightgreen");
+        fase++
     }
 
     //==============--- FINAL CARREGAJOGO NÍVEL 3 ---==============//
     //-------------------------------------------------------------//
 
     //------------------------------------------------------------//
-    //=============--- INÍCIO CARREGAJOGO NÍVEL 3 ---=============//
+    //=============--- INÍCIO CARREGAJOGO NÍVEL 4 ---=============//
 
     function carregaJogo4() {
         debugger
@@ -783,6 +851,7 @@
         adicionaPixel(10, 11);
         adicionaPixel(10, 10, "lightblue");
         adicionaPixelMovel(10, 10, 20, 2);
+        // sfsefdssce();
         adicionaPixel(14, 10, "rgba(0, 0, 255, 0.100)");
         adicionaPixel(14, 12, "rgba(0, 0, 255, 0.100)");
         adicionaPixel(18, 12, "rgba(0, 0, 255, 0.100)");
@@ -817,9 +886,94 @@
         adicionaPixel(2, 20, "lightgreen");
         adicionaPixel(1, 19, "lightgreen");
         adicionaPixel(2, 19, "lightgreen");
+        fase++
     }
 
-    //==============--- FINAL CARREGAJOGO NÍVEL 3 ---==============//
+    //==============--- FINAL CARREGAJOGO NÍVEL 4 ---==============//
+    //-------------------------------------------------------------//
+
+    //------------------------------------------------------------//
+    //=============--- INÍCIO CARREGAJOGO NÍVEL 4 ---=============//
+
+    function carregaJogo5() {
+        debugger
+        limpaGrid("jogo")
+        jogo.style.display = 'grid';
+        guia.style.display = "none"
+        jogo.style.gridTemplateRows = "repeat(20, auto)";
+        jogo.style.gridTemplateColumns = "repeat(20, auto)";
+        inicio.style.display = 'none';
+
+        adicionaPixel(20, 19, "lightseagreen");
+        adicionaPixel(19, 19, "lightseagreen");
+        adicionaPixel(20, 20, "lightseagreen");
+        adicionaPixel(19, 20, "lightseagreen");
+
+        adicionaPixel(18, 19);
+        adicionaPixel(17, 19);
+        adicionaPixel(16, 19);
+        adicionaPixel(15, 19);
+        adicionaPixel(14, 19);
+        adicionaPixel(13, 19);
+        adicionaPixel(12, 19);
+        adicionaPixel(12, 18);
+        adicionaPixel(12, 17);
+        adicionaPixel(11, 17);
+        adicionaPixel(10, 17);
+        adicionaPixel(9, 17);
+        adicionaPixel(8, 17);
+        adicionaPixel(7, 17);
+        adicionaPixel(6, 17);
+        adicionaPixel(5, 17);
+        adicionaPixel(4, 17);
+        adicionaPixel(4, 16);
+        adicionaPixel(4, 15);
+        adicionaPixel(4, 14);
+        adicionaPixel(4, 13);
+        adicionaPixel(4, 12);
+        adicionaPixel(5, 12);
+        adicionaPixel(6, 12);
+        adicionaPixel(7, 12);
+        adicionaPixel(8, 12);
+        adicionaPixel(9, 12);
+        adicionaPixel(10, 12);
+        adicionaPixel(11, 12);
+        adicionaPixel(12, 12);
+        adicionaPixel(13, 12);
+        adicionaPixel(14, 12);
+        adicionaPixel(15, 12);
+        adicionaPixel(15, 11);
+        adicionaPixel(15, 10);
+        adicionaPixel(15, 9);
+        adicionaPixel(14, 9);
+        adicionaPixel(13, 9);
+        adicionaPixel(12, 9);
+        adicionaPixel(11, 9);
+        adicionaPixel(10, 9);
+        adicionaPixel(10, 8);
+        adicionaPixel(10, 7);
+        adicionaPixel(10, 6);
+        adicionaPixel(10, 5);
+        adicionaPixel(11, 5);
+        adicionaPixel(12, 5);
+        adicionaPixel(13, 5);
+        adicionaPixel(14, 5);
+        adicionaPixel(15, 5);
+        adicionaPixel(16, 5);
+        adicionaPixel(17, 5);
+        adicionaPixel(18, 5);
+        adicionaPixel(18, 4);
+        adicionaPixel(18, 3);
+        adicionaPixel(18, 2);
+
+        adicionaPixel(19, 2, "lightgreen");
+        adicionaPixel(20, 2, "lightgreen");
+        adicionaPixel(19, 1, "lightgreen");
+        adicionaPixel(20, 1, "lightgreen");
+        fase++
+    }
+
+    //==============--- FINAL CARREGAJOGO NÍVEL 4 ---==============//
     //-------------------------------------------------------------//
 
 
@@ -832,8 +986,6 @@
         proximaUrl.pop();
 
         proximaUrl = proximaUrl.join('/');
-
-        console.log("proximaUrl", proximaUrl)
 
         window.location.href = proximaUrl + '/pagina5.html';
     }

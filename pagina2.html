@@ -26,7 +26,12 @@
             align-items: center;
         }
 
-        .box {
+        .row {
+            width: 100%;
+            margin: 0;
+        }
+
+        #idCirculos {
             width: 300px;
             height: 300px;
         }
@@ -39,6 +44,7 @@
             margin: 5px;
             border: 3px solid white;
             box-sizing: border-box;
+            display: block;
         }
 
         .circulo:hover {
@@ -58,56 +64,7 @@
 <body>
     <div id="divPergunta">
         <div class="container_2">
-            <div id="idCirculos" class="box">
-                <div class="row">
-                    <div onclick="acende(1)" class="circulo" id="circulo1"></div>
-                    <div onclick="acende(2)" class="circulo" id="circulo2"></div>
-                    <div onclick="acende(3)" class="circulo" id="circulo3"></div>
-                    <div onclick="acende(4)" class="circulo" id="circulo4"></div>
-                    <div onclick="acende(5)" class="circulo" id="circulo5"></div>
-                    <div onclick="acende(6)" class="circulo" id="circulo6"></div>
-                </div>
-                <div class=" row">
-                    <div onclick="acende(7)" class="circulo" id="circulo7"></div>
-                    <div onclick="acende(8)" class="circulo" id="circulo8"></div>
-                    <div onclick="acende(9)" class="circulo" id="circulo9"></div>
-                    <div onclick="acende(10)" class="circulo" id="circulo10"></div>
-                    <div onclick="acende(11)" class="circulo" id="circulo11" ]></div>
-                    <div onclick="acende(12)" class="circulo" id="circulo12"></div>
-                </div>
-                <div class="row">
-                    <div onclick="acende(13)" class="circulo" id="circulo13"></div>
-                    <div onclick="acende(14)" class="circulo" id="circulo14"></div>
-                    <div onclick="acende(15)" class="circulo" id="circulo15"></div>
-                    <div onclick="acende(16)" class="circulo" id="circulo16"></div>
-                    <div onclick="acende(17)" class="circulo" id="circulo17"></div>
-                    <div onclick="acende(18)" class="circulo" id="circulo18"></div>
-                </div>
-                <div class="row">
-                    <div onclick="acende(19)" class="circulo" id="circulo19"></div>
-                    <div onclick="acende(20)" class="circulo" id="circulo20"></div>
-                    <div onclick="acende(21)" class="circulo" id="circulo21"></div>
-                    <div onclick="acende(22)" class="circulo" id="circulo22"></div>
-                    <div onclick="acende(23)" class="circulo" id="circulo23"></div>
-                    <div onclick="acende(24)" class="circulo" id="circulo24"></div>
-                </div>
-                <div class="row">
-                    <div onclick="acende(25)" class="circulo" id="circulo25"></div>
-                    <div onclick="acende(26)" class="circulo" id="circulo26"></div>
-                    <div onclick="acende(27)" class="circulo" id="circulo27"></div>
-                    <div onclick="acende(28)" class="circulo" id="circulo28"></div>
-                    <div onclick="acende(29)" class="circulo" id="circulo29"></div>
-                    <div onclick="acende(30)" class="circulo" id="circulo30"></div>
-                </div>
-                <div class="row">
-                    <div onclick="acende(31)" class="circulo" id="circulo31"></div>
-                    <div onclick="acende(32)" class="circulo" id="circulo32"></div>
-                    <div onclick="acende(33)" class="circulo" id="circulo33"></div>
-                    <div onclick="acende(34)" class="circulo" id="circulo34"></div>
-                    <div onclick="acende(35)" class="circulo" id="circulo35"></div>
-                    <div onclick="acende(36)" class="circulo" id="circulo36"></div>
-                </div>
-            </div>
+            <div id="idCirculos"></div>
         </div>
     </div>
     <footer>
@@ -120,137 +77,39 @@
 
 <script>
 
+    var divP = document.getElementById("idCirculos");
+    var circulos = [];
 
-    function acende(numeroId) {
+    on_off()
+
+    function on_off() {
         debugger
+        let cont = 0
+        for (let i = 1; i <= 6; i++) {
+            let divR = document.createElement("div");
+            divR.id = "row" + i
+            divR.classList.add("row");
+            divP.appendChild(divR);
+            for (let j = 1; j <= 6; j++) {
+                cont++
+                circulos.push("circulo"+cont);
+                var div = document.createElement("div");
+                div.id = "circulo" + cont
+                div.classList.add("circulo");
+                divR.appendChild(div);
 
-        for (var num = 1; num <= 36; num++) {
-            debugger
-            var circulo = document.getElementById(`circulo${num}`)
-            circulos = []
-            circulos.push(circulo)
-            circulos[num] = false
-            console.log(circulos[num])
-            if (circulo.style.backgroundColor == "yellow") {
-                circulos[num] = true
-                console.log(circulos[num])
+                div.addEventListener("click", () => {
+                    switch ("circulo1") {
+                        case "circulo1":
+                            
+                            break;
+                        default:
+                            break;
+                    }
+                });
             }
-        }
-
-        //=======================================================//
-        //--------------------  Q U I N A S  --------------------//
-
-
-        if (numeroId == 1) {
-            idCirculo = document.getElementById(`circulo${numeroId + 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId + 6}`).style.backgroundColor = "yellow";
 
         }
-
-        if (numeroId == 6) {
-            idCirculo = document.getElementById(`circulo${numeroId - 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId + 6}`).style.backgroundColor = "yellow";
-
-        }
-
-        if (numeroId == 31) {
-            idCirculo = document.getElementById(`circulo${numeroId + 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 6}`).style.backgroundColor = "yellow";
-
-        }
-
-        if (numeroId == 36) {
-            idCirculo = document.getElementById(`circulo${numeroId - 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 6}`).style.backgroundColor = "yellow";
-
-        }
-
-        //--------------------  Q U I N A S  --------------------//
-        //=======================================================//
-
-        //=======================================================//
-        //--------------------  B O R D A S  --------------------//
-
-        if (numeroId == 7 ||
-            numeroId == 13 ||
-            numeroId == 19 ||
-            numeroId == 25) {
-
-            idCirculo = document.getElementById(`circulo${numeroId - 6}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId + 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId + 6}`).style.backgroundColor = "yellow";
-        }
-
-        if (numeroId == 12 ||
-            numeroId == 18 ||
-            numeroId == 24 ||
-            numeroId == 30) {
-
-            idCirculo = document.getElementById(`circulo${numeroId + 6}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 6}`).style.backgroundColor = "yellow";
-        }
-
-        if (numeroId == 32 ||
-            numeroId == 33 ||
-            numeroId == 34 ||
-            numeroId == 35) {
-
-            idCirculo = document.getElementById(`circulo${numeroId - 6}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId + 1}`).style.backgroundColor = "yellow";
-        }
-
-        if (numeroId == 2 ||
-            numeroId == 3 ||
-            numeroId == 4 ||
-            numeroId == 5) {
-
-            idCirculo = document.getElementById(`circulo${numeroId + 6}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId + 1}`).style.backgroundColor = "yellow";
-        }
-
-        //--------------------  B O R D A S  --------------------//
-        //=======================================================//
-
-        //=======================================================//
-        //--------------------  C E N T R O  --------------------//
-
-        if (
-            numeroId == 8  || numeroId == 9  ||
-            numeroId == 10 || numeroId == 11 ||
-            numeroId == 14 || numeroId == 15 ||
-            numeroId == 16 || numeroId == 17 ||
-            numeroId == 20 || numeroId == 21 ||
-            numeroId == 22 || numeroId == 23 ||
-            numeroId == 26 || numeroId == 27 ||
-            numeroId == 28 || numeroId == 29
-         ) {
-
-            idCirculo = document.getElementById(`circulo${numeroId + 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId + 6}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 1}`).style.backgroundColor = "yellow";
-
-            idCirculo = document.getElementById(`circulo${numeroId - 6}`).style.backgroundColor = "yellow";
-        }
-
-        //--------------------  C E N T R O  --------------------//
-        //=======================================================//
 
     }
 
@@ -271,27 +130,6 @@
             console.log("proximaUrl", proximaUrl)
 
             window.location.href = proximaUrl + '/pagina3.html';
-        } else {
-            if (resposta.value.length == 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '[ERROR]',
-                    text: 'Preencha o espaço!',
-                    background: '#383838',
-                    color: '#E2E2E2',
-                    confirmButtonColor: '#313131',
-                })
-            } else {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: '[ERROR]',
-                    text: `A resposta "${resposta}" está errada!`,
-                    background: '#383838',
-                    color: '#E2E2E2',
-                    confirmButtonColor: '#313131',
-                })
-            }
         }
     }
 

@@ -67,49 +67,6 @@
 
         var resposta = document.getElementById("resposta").value;
 
-        const Alerts = {
-
-            Warning() {
-                Swal.fire({
-                    allowEnterKey: false,
-                    toast: true,
-                    icon: 'warning',
-                    text: 'Preencha o espaço!',
-                    timer: 2000,
-                    timerProgressBar: true,
-                    color: '#E2E2E2',
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    background: '#383838',
-                    confirmButtonColor: '#313131',
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-            },
-
-            Fail() {
-                Swal.fire({
-                    allowEnterKey: false,
-                    toast: true,
-                    icon: 'error',
-                    text: `A resposta "${resposta}" está errada!`,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    background: '#383838',
-                    color: '#E2E2E2',
-                    confirmButtonColor: '#313131',
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-            },
-        }
-
         if (resposta == '???') {
 
             var url = window.location.href;
@@ -122,12 +79,6 @@
 
             window.location.href = proximaUrl + '/pagina6.html';
 
-        } else {
-            if (resposta.length == 0) {
-                Alerts.Warning()
-            } else {
-                Alerts.Fail()
-            }
         }
     }
 

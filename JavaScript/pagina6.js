@@ -1,11 +1,12 @@
 
 var tela = document.getElementById("tela");
 const ctx = tela.getContext("2d");
-const idJogadorAtual = "jogador1"
+const idJogadorAtual = "jogador1";
+const idFrutaAtual = "fruta1";
 
 const jogo = {
     jogadores: {
-        "jogador1": { x: 0, y: 0 },
+        "jogador1": { x: 1, y: 1 },
         "jogador2": { x: 9, y: 9 },
     },
 
@@ -60,6 +61,7 @@ function pressioneTecla(evento) {
         jogador.y++
         return
     }
+
 }
 
 renderizaTela()
@@ -81,7 +83,8 @@ function renderizaTela() {
         ctx.fillRect(fruta.x, fruta.y, 1, 1);
     }
 
-    requestAnimationFrame(renderizaTela)
+requestAnimationFrame(renderizaTela)
+
 }
 
 let resposta = document.getElementById('resposta');

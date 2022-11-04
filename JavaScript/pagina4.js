@@ -389,10 +389,10 @@ var fase = 1
 
     jogo.addEventListener("mouseover", function () {
         //document.location.reload(); //  <<<<<<==<<==<===================
-        // if (fase >= 1) {
-        //     fase = fase - 2
-        // }
-        // mostraInicio()
+        if (fase >= 1) {
+            fase = fase - 2
+        }
+        mostraInicio()
     })
 
     //------------------------------------------------------------//

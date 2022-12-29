@@ -1,4 +1,4 @@
-var fase = 1
+var fase = 4
 
 
     var input = document.getElementById("input");
@@ -326,6 +326,12 @@ var fase = 1
 
     mostraInicio()
 
+    function mudaInicioGridTemplate(gridTemplate) {
+
+        inicio.style.gridTemplateRows = `repeat(${gridTemplate}, auto)`;
+        inicio.style.gridTemplateColumns = `repeat(${gridTemplate}, auto)`;
+    }
+
     function mostraInicio() {
         
         jogo.style.display = "none";
@@ -334,8 +340,7 @@ var fase = 1
 
         if (fase == 1) {
             limpaGrid("inicio");
-            inicio.style.gridTemplateRows = "repeat(15, auto)";
-            inicio.style.gridTemplateColumns = "repeat(15, auto)";
+            mudaInicioGridTemplate(15);
             adicionaPixelInicio(1, 1);
             adicionaPixelInicio(1, 2);
             adicionaPixelInicio(2, 2);
@@ -343,8 +348,7 @@ var fase = 1
         }
         if (fase == 2) {
             limpaGrid("inicio");
-            inicio.style.gridTemplateRows = "repeat(15, auto)";
-            inicio.style.gridTemplateColumns = "repeat(15, auto)";
+            mudaInicioGridTemplate(15);
             adicionaPixelInicio(15, 1);
             adicionaPixelInicio(15, 2);
             adicionaPixelInicio(14, 2);
@@ -352,8 +356,7 @@ var fase = 1
         }
         if (fase == 3) {
             limpaGrid("inicio");
-            inicio.style.gridTemplateRows = "repeat(20, auto)";
-            inicio.style.gridTemplateColumns = "repeat(20, auto)";
+            mudaInicioGridTemplate(20);
             adicionaPixelInicio(1, 19);
             adicionaPixelInicio(2, 20);
             adicionaPixelInicio(1, 20);
@@ -361,8 +364,7 @@ var fase = 1
         }
         if (fase == 4) {
             limpaGrid("inicio");
-            inicio.style.gridTemplateRows = "repeat(20, auto)";
-            inicio.style.gridTemplateColumns = "repeat(20, auto)";
+            mudaInicioGridTemplate(20);
             adicionaPixelInicio(1, 2);
             adicionaPixelInicio(2, 2);
             adicionaPixelInicio(1, 1);
@@ -372,8 +374,7 @@ var fase = 1
             limpaGrid("inicio");
             guia.style.padding = 2 + "px"
             guia.innerHTML = "<h4>Mais Atualizações em breve!</h4>";
-            inicio.style.gridTemplateRows = "repeat(20, auto)";
-            inicio.style.gridTemplateColumns = "repeat(20, auto)";
+            mudaInicioGridTemplate(20);
             adicionaPixelInicio(19, 20);
             adicionaPixelInicio(20, 19);
             adicionaPixelInicio(20, 20);
